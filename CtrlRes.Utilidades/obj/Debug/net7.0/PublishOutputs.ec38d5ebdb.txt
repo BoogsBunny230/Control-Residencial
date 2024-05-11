@@ -1,0 +1,3 @@
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\publish\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\publish\CtrlRes.Utilidades.deps.json
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\publish\CtrlRes.Utilidades.pdb

@@ -1,0 +1,23 @@
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\CtrlRes.Utilidades.deps.json
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\CtrlRes.Utilidades.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.csproj.AssemblyReference.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.AssemblyInfoInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.AssemblyInfo.cs
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.csproj.CoreCompileInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\refint\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\ref\CtrlRes.Utilidades.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\CtrlRes.Utilidades.deps.json
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\CtrlRes.Utilidades.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\bin\Debug\net7.0\CtrlRes.Utilidades.pdb
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.AssemblyInfoInputs.cache
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.AssemblyInfo.cs
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.csproj.CoreCompileInputs.cache
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\refint\CtrlRes.Utilidades.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\CtrlRes.Utilidades.pdb
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.Utilidades\obj\Debug\net7.0\ref\CtrlRes.Utilidades.dll

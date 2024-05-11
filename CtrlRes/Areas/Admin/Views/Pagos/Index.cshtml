@@ -1,0 +1,383 @@
+﻿@model Pagos
+
+@{
+    ViewData["Title"] = "Pagos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+
+@section styles {
+    <!--Bootstrap 5 & Datatables CSS-->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <link rel="stylesheet" href="~/css/TablaCatalogo.css" />
+
+}
+
+@section scriptsup {
+
+    <!--Bootstrap 5 & Datatables JS-->
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+}
+
+<style>
+    .centered {
+        max-width: 400px; /* ajusta el ancho máximo según tus necesidades */
+        margin: 0 auto; /* centra horizontalmente */
+    }
+
+    input[readonly] {
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
+        color: #888;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-4">
+            <label for="tipo">Seleccione una privada:</label>
+            <select class="form-select mb-3" id="privada_select" required data-error="Debe seleccionar una privada">
+                <option value="">Seleccione una opción</option>
+                @foreach (var privada in ViewBag.Privadas)
+                {
+                    <option value="@privada.IdPriv">@privada.Nombre</option>
+                }
+            </select>
+            <label for="Viviendas">Seleccione una vivienda</label>
+            <select id="Viviendas-select" name="nombres" class="form-select" disabled>
+                <option value="">Seleccione una opción</option>
+            </select>
+        </div>
+        <div class="col-md-4 d-flex flex-column ">
+            <label for="numviv">Propietario:</label>
+            <input type="text" id="propietario-nombre" class="form-control mb-3" disabled>
+            <label for="celular">Arrendatario:</label>
+            <input type="text" id="arrendatario-nombre" class="form-control mb-3" disabled>
+            <!--        <label for="vehiculo">Vehiculo:</label>
+                    <input type="text" id="vehiculo" name="vehiculo" class="form-control" disabled> -->
+        </div>
+        <div class="col-md-4 d-flex flex-column align-items-center">
+            <label for="numviv">Notificación mediante WhatsApp:</label>
+            <input type="text" class="form-control mb-2" style="width: 100%; height: 73px; text-align:center;" placeholder="Escribe un mensaje..." disabled>
+            <button type="button" class="btn btn-primary" disabled>Enviar notificación</button>
+        </div>
+    </div>
+</div>
+
+@*<h2 class="text-center">Seleccione un usuario:</h2>
+
+
+<form class="text-center">
+    <div class="form-group centered">
+        <label asp-for="IdUsu" class="control-label"></label>
+        <select asp-for="IdUsu" class="form-control custom-select" onchange="obtenerPagos()">
+            <option value="">Seleccione un usuario</option>
+            @foreach (var usuario in ViewBag.Usuarios)
+            {
+                <option value="@usuario.Id">@usuario.UserName</option>
+            }
+        </select>
+    </div>
+    <br />
+    <a href="@Url.Action("Create")" class="btn btn-secondary"><i class="fas fa-plus"></i> Nuevo concepto de pago</a>
+</form>*@
+
+<div class="container-flex mt-2">
+    <div id="vista-tabla" class="col-md-12">
+        <table id="Tabla" class="table display cell-border table-bordered" style="width:100%">
+            <thead>
+                <tr class="table-custom"><th colspan="10" style="text-align:center"><h3 class="text-center">PAGOS  <a href="@Url.Action("Create")" class="btn btn-outline-info"><i class="fas fa-plus"></i> Agregar</a></h3></th></tr>
+                <tr class="table-secondary">
+                    <th>Referencia</th>
+                    <th>Para</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Fecha de registro</th>
+                    <th>Fecha límite</th>
+                    <th>Fecha de pago</th>
+                    <th>Fecha de registro de pago</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-pagos">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#privada_select").change(function () {
+            $("#propietario-nombre").val("");
+            $("#arrendatario-nombre").val("");
+            $("#tabla-pagos").empty();
+            var foreignKey = $("#privada_select").val();
+
+            if (foreignKey !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Pagos/GetViviendas?foreignKey=" + foreignKey,
+                    success: function (data) {
+                        $("#Viviendas-select").prop('disabled', false);
+                        $("#Viviendas-select").empty();
+                        $("#Viviendas-select").append('<option value="">Seleccione una opción</option>');
+                        $.each(data, function (i, item) {
+                            console.log(item);
+                            $("#Viviendas-select").append('<option value="' + item.value + '">' + item.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                        $("#Viviendas-select").prop('disabled', true);
+                    }
+                });
+            } else {
+                $("#data-selector").empty();
+                $("#data-selector").append('<option value="">Seleccione una privada primero</option>');
+            }
+        });
+    });
+
+    $("#Viviendas-select").change(function () {
+        var elementId = $("#Viviendas-select").val();
+
+        if (elementId !== "") {
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Pagos/GetPropArre?foreignKey=" + elementId,
+                success: function (data) {
+                    $("#propietario-nombre").val(data.propietarioNombre);
+                    $("#arrendatario-nombre").val(data.arrendatarioNombre);
+                },
+                error: function () {
+                    alert("Error al cargar los datos.");
+                }
+            });
+
+            //
+
+            $.ajax({
+                url: '@Url.Action("ObtenerPagos", "Pagos")',
+                type: "GET",
+                data: { idUsu: elementId },
+                success: function (result) {
+                    $("#tabla-pagos").empty();
+                    console.log(result);
+
+                    if (result.length == 0) {
+                        var fila = "<tr>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "<td> Sin resultados </td>" +
+                            "</tr>";
+                        $("#tabla-pagos").append(fila);
+                    }
+                    else {
+                        $.each(result, function (i, pago) {
+
+                            // Formatear la fechas
+                            var fecha = new Date(pago.fechaLimite);
+                            var fechaFormateada1 = formatearFecha(fecha);
+
+                            var fecha = new Date(pago.fechaRegistro);
+                            var fechaFormateada2 = formatearFecha(fecha);
+
+                            var fechaRealizacion1 = pago.fechaPago;
+                            if(pago.fechaPago != "--"){
+                                var fecha = new Date(fechaRealizacion1);
+                                var fechaRealizacion1 = formatearFecha(fecha);
+                            }
+
+                            var fechaRealizacion2 = pago.fechaRegistroPago;
+                            if (pago.fechaRegistroPago != "--") {
+                                var fecha = new Date(fechaRealizacion2);
+                                var fechaRealizacion2 = formatearFecha(fecha);
+                            }
+
+                            // Agregar una clase CSS a la celda en función del valor de lectura.estado
+                            var estadoClass = "";
+                            if (pago.estado == "Sin Pagar") {
+                                estadoClass = "secondary";
+                            } else if (pago.estado == "Verificando") {
+                                estadoClass = "warning";
+                            }
+                            else if (pago.estado == "Aprobado") {
+                                estadoClass = "success";
+                            }
+                            else if (pago.estado == "Rechazado") {
+                                estadoClass = "danger";
+                            }
+
+                            var ColumnaArchivo = "";
+                            if(pago.estado == "Verificando" ||  pago.estado == "Aprobado")
+                                ColumnaArchivo = '<button class="btn btn-primary ver-archivo" data-id="' + pago.id + '">Ver</button>';
+
+                            var fila = "<tr>" +
+                                "<td>" + pago.referencia + "</td>" +
+                                "<td>" + pago.para + "</td>" +
+                                "<td>" + pago.concepto + "</td>" +
+                                "<td>" + "$" + pago.monto + "</td>" +
+                                '<td>' + "<a class='btn btn-" + estadoClass + " text-white' style='width:100px;'>" + pago.estado + "</a>" + '</td>' +
+                                "<td>" + fechaFormateada2 + "</td>" +
+                                "<td>" + fechaFormateada1 + "</td>" +
+                                "<td>" + fechaRealizacion1 + "</td>" +
+                                "<td>" + fechaRealizacion2 + "</td>" +
+                                '<td>' + ColumnaArchivo + '</td>' +
+                                "</tr>";
+
+                            $("#tabla-pagos").append(fila);
+                        });
+                    }
+                    //var table = $('#Tabla').DataTable();
+                    //table.destroy();
+
+                    // Agregar un evento de clic a los botones para ver el archivo
+                    $('.ver-archivo').on('click', function () {
+                        var id = $(this).data('id');
+                        console.log(id);
+                        // Realizar una solicitud AJAX con el id como parámetro
+                        $.ajax({
+                            url: '@Url.Action("ObtenerArchivo", "Pagos")',
+                            type: 'GET',
+                            data: { id: id },
+                            success: function (result) {
+                                // Mostrar una ventana emergente con SweetAlert2 y la imagen en base64 recibida en la respuesta
+                                console.log(result);  
+                                Swal.fire({
+                                    imageUrl: 'data:image/png;base64,' + result.archivo,
+                                    imageAlt: 'Archivo',
+                                    showCancelButton: true,
+                                    showDenyButton: true,
+                                    confirmButtonText: 'Aprobar',
+                                    denyButtonText: 'Rechazar'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Realizar una solicitud AJAX con el id y el string "Aceptar" como parámetros
+                                        $.ajax({
+                                            url: '@Url.Action("ActualizarArchivo", "Pagos")',
+                                            type: 'POST',
+                                            data: { id: id, accion: 'Aceptar' },
+                                            success: function (result) {
+                                                // Aquí puedes manejar la respuesta del servidor
+                                            }
+                                        });
+                                    } else if (result.isDenied) {
+                                        // Realizar una solicitud AJAX con el id y el string "Rechazar" como parámetros
+                                        $.ajax({
+                                            url: '@Url.Action("ActualizarArchivo", "Pagos")',
+                                            type: 'POST',
+                                            data: { id: id, accion: 'Rechazar' },
+                                            success: function (result) {
+                                                // Aquí puedes manejar la respuesta del servidor
+                                            }
+                                        });
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+
+            //
+
+        } else {
+            $("#propietario-nombre").val("");
+            $("#arrendatario-nombre").val("");
+        }
+    });
+
+    // Función para formatear una fecha
+    function formatearFecha(fecha) {
+        var opciones = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        };
+        var fechaFormateada = fecha.toLocaleDateString("es-MX", opciones);
+        fechaFormateada += " horas";
+
+        return fechaFormateada;
+    }
+
+</script>
+
+
+
+
+
+<script>
+    function obtenerPagos() {
+        var idUsu = document.getElementById("IdUsu").value;
+
+        if (idUsu != "") {
+            $.ajax({
+                url: '@Url.Action("ObtenerPagos", "Pagos")',
+                type: "GET",
+                data: { idUsu: idUsu },
+                success: function (result) {
+                    $("#tabla-pagos").empty();
+
+                    $.each(result, function (i, pago) {
+                        var fila = "<tr>" +
+                            "<td>" + pago.para + "</td>" +
+                            "<td>" + pago.referencia + "</td>" +
+                            "<td>" + pago.concepto + "</td>" +
+                            "<td>" + "$" + pago.monto + "</td>" +
+                            "<td>" + pago.estado + "</td>" +
+                            "<td>" + pago.fechaRegistro + "</td>" +
+                            "<td>" + pago.fechaLimite + "</td>" +
+                            "<td>" + pago.fechaPago + "</td>" +
+                            "<td>" + pago.fechaRegistroPago + "</td>" +
+                            "</tr>";
+
+                        $("#tabla-pagos").append(fila);
+                    });
+                    //var table = $('#Tabla').DataTable();
+                    //table.destroy();
+
+
+                }
+            });
+        }
+    }
+</script>
+
+@*@section scriptsdown {
+
+    <script src="~/js/TablaCatalogos.js"></script>
+}*@

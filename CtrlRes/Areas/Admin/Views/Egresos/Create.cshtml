@@ -1,0 +1,124 @@
+﻿@model CtrlRes.Models.Egresos
+
+@{
+    ViewData["Title"] = "Registrar Egreso";
+}
+
+<link rel="stylesheet" href="~/css/formRyE.css" />
+
+<div class="page-wrapper p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">REGISTRAR UN EGRESO</h2>
+            </div>
+            <div class="card-body">
+                <form id="registerForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                    <div class="form-row">
+                        <label asp-for="Monto" class="name">Monto:</label>
+                        <div class="value">
+                            <input asp-for="Monto" type="number" step="0.01" class="form-control" style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Monto" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label asp-for="Concepto" class="name">Concepto:</label>
+                        <div class="value">
+                            <input asp-for="Concepto" class="form-control" style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Concepto" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label asp-for="Motivo" class="name">Motivo:</label>
+                        <div class="value">
+                            <input asp-for="Motivo" class="form-control"  style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Motivo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row ">
+                        <label class="name">Tipo de egreso:</label>
+                        <div class="value d-flex justify-content-end">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipo" id="propietario" value="Mantenimiento">
+                                <label class="form-check-label" for="propietario">Mantenimiento</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipo" id="arrendatario" value="Otro">
+                                <label class="form-check-label" for="arrendatario">Otro</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input asp-for="Tipo" type="hidden" id="tipo_seleccionado">
+
+                    @*//*@
+
+                    <div class="form-row" id="selector_privada" disabled>
+                        <div class="name">Privada:</div>
+
+
+                        <div class="value">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select asp-for="Privada_Id" asp-items="@ViewBag.Privadas" id="selector_2" class="form-control" aria-required="true">
+                                    <option disabled selected>Seleccione al propietario</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                                <span asp-validation-for="Privada_Id" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*///*@
+
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary form-control" style="font-size:20px">Agregar</button>
+                                    &nbsp;
+                                </div>
+                                <div class="col">
+                                    <a asp-area="Admin" asp-controller="Egresos" asp-action="Index" class="btn btn-success form-control" style="font-size:20px">Volver a la lista</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        const tipo_input = document.getElementById('tipo_seleccionado');
+        const checkboxes = document.querySelectorAll('input[type=radio][name=tipo]');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function () {
+                tipo_input.value = this.value;
+
+                if (tipo_input.value == "Mantenimiento") {
+
+                    $("#tipo_seleccionado").val("Mantenimiento");
+
+                }
+                if (tipo_input.value == "Otro") {
+
+                    $("#tipo_seleccionado").val("Otro");
+                }
+
+            });
+        });
+
+    });
+</script>

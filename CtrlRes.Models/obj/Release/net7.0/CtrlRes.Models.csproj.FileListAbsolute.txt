@@ -1,0 +1,12 @@
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\bin\Release\net7.0\CtrlRes.Models.deps.json
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\bin\Release\net7.0\CtrlRes.Models.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\bin\Release\net7.0\CtrlRes.Models.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.csproj.AssemblyReference.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.AssemblyInfoInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.AssemblyInfo.cs
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.csproj.CoreCompileInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\refint\CtrlRes.Models.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\CtrlRes.Models.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Models\obj\Release\net7.0\ref\CtrlRes.Models.dll

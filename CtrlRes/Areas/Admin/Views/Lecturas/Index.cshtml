@@ -1,0 +1,346 @@
+﻿@model RegistroLecturas
+
+@{
+    ViewData["Title"] = "Lecturas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+
+@section styles {
+    <!--Bootstrap 5 & Datatables CSS-->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <link rel="stylesheet" href="~/css/TablaCatalogo.css" />
+
+}
+
+@section scriptsup {
+
+    <!--Bootstrap 5 & Datatables JS-->
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+}
+
+<style>
+.centered {
+  max-width: 400px; /* ajusta el ancho máximo según tus necesidades */
+  margin: 0 auto; /* centra horizontalmente */
+    }
+
+    #tabla-lecturas .estado-pendiente {
+        background-color: yellow;
+    }
+
+    #tabla-lecturas .estado-realizada {
+        background-color: green;
+        color: white;
+    }
+
+    #Tabla tbody tr {
+    cursor: pointer;
+}
+
+    .valor {
+        overflow: hidden;
+        margin-bottom: 15px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        font: bold 40px Arial, Helvetica, sans-serif;
+        color: #333;
+        background-color: #00000014;
+        color: rgba(0,0,0, 0.6);
+    }
+
+    .swal2-image {
+        max-width: 100%;
+        margin: 1em auto 0em;
+    }
+</style>
+
+<h2 class="text-center">Seleccione la privada:</h2>
+
+<form class="text-center">
+    <div class="form-group centered">
+        @*<label asp-for="IdUsu" class="control-label"></label>*@
+        <select asp-for="Privada_Id" class="form-control custom-select" onchange="obtenerPagos()" id="Privada">
+            <option value="">Seleccione la privada</option>
+            @foreach (var privada in ViewBag.Privadas)
+            {
+                <option value="@privada.IdPriv">@privada.Nombre</option>
+            }
+        </select>
+    </div>
+    <br />
+    <a href="@Url.Action("Create")" class="btn btn-secondary"><i class="fas fa-plus"></i> Agendar nueva lectura </a>
+</form>
+
+<br />
+<div id="vista-tabla">
+    <table id="Tabla" class="table display cell-border table-bordered" style="width:100%">
+        <thead>
+            <tr class="table-custom"><th colspan="5" style="text-align:center"><h3 class="text-center">LECTURAS</h3></th></tr>
+            <tr class="table-secondary text-center">
+                <th>Folio</th>
+                <th>TipLec</th>
+                <th>Estado</th>
+                <th>Fecha para realizar la lectura</th>
+                <th>Privada</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-lecturas" class="text-center">
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    // Función para formatear una fecha
+    function formatearFecha(fecha) {
+        var opciones = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        };
+        var fechaFormateada = fecha.toLocaleDateString("es-MX", opciones);
+        fechaFormateada += " horas";
+
+        return fechaFormateada;
+    }
+
+    function obtenerPagos() {
+        var privada = document.getElementById("Privada").value;
+
+        if (privada != "") {
+            $.ajax({
+                url: '@Url.Action("ObtenerLecturas", "Lecturas")',
+                type: "GET",
+                data: { privada: privada },
+                success: function (result) {
+                    // Inicializar la tabla con DataTables
+                    var table = $('#Tabla').DataTable();
+
+                    // Limpiar el contenido de la tabla
+                    table.clear();
+
+                    //console.log(result);
+                    $.each(result, function (i, lectura) {
+                        // Obtener el porcentaje de lectura.estado
+                        var porcentaje = parseFloat(lectura.estado.split('(')[1].split('%')[0]);
+
+                        // Definir el color del botón en base a distintos intervalos de porcentaje
+                        var color;
+                        if (isNaN(porcentaje)) {
+                            color = 'secondary';
+                        } else if (porcentaje >= 0 && porcentaje < 20) {
+                            color = 'danger';
+                        } else if (porcentaje >= 20 && porcentaje < 40) {
+                            color = 'warning';
+                        } else if (porcentaje >= 40 && porcentaje < 60) {
+                            color = 'info';
+                        } else if (porcentaje >= 60 && porcentaje < 80) {
+                            color = 'primary';
+                        } else if (porcentaje >= 80 && porcentaje <= 100) {
+                            color = 'success';
+                        }
+
+                        // Formatear la fecha
+                        var fecha = new Date(lectura.fechaProgramada);
+                        var fechaFormateada = formatearFecha(fecha);
+
+                        // Agregar una nueva fila a la tabla
+                        table.row.add([
+                            lectura.folio,
+                            lectura.tipLec,
+                            `<a class='btn btn-${color}'>${lectura.estado}</a>`,
+                            fechaFormateada,
+                            lectura.privada_Id
+                        ]);
+                    });
+
+                    // Redibujar la tabla y actualizar la información de paginación y filtrado
+                    table.draw();
+
+                    // Agregar un evento de clic a cada fila
+                    $('#Tabla tbody').on('click', 'tr', function () {
+                        var row = table.row(this);
+
+                        if (row.child.isShown()) {
+                            // Si la fila ya tiene un contenedor agregado, eliminarlo o colapsarlo
+                            row.child.hide();
+                        } else {
+                            // Si la fila no tiene un contenedor agregado, realizar una solicitud AJAX con el folio como parámetro
+                            var data = row.data();
+                            var folio = data[0];
+
+                            $.ajax({
+                                url: '@Url.Action("ObtenerLecturasChildren", "Lecturas")',
+                                type: 'GET',
+                                data: { folio: folio },
+                                success: function (result) {
+
+                                    // Generar el contenido de la nueva tabla
+                                    var tabla = '<table class="table display cell-border table-bordered" style="width:100%">' +
+                                        '<thead>' +
+                                        '<tr class="table-custom" style="text-align: center">' +
+                                        '<th style="text-align: center">Vivienda_Id</th>' +
+                                        '<th style="text-align: center">Estado</th>' +
+                                        '<th style="text-align: center">ValorLectura</th>' +
+                                        '<th style="text-align: center">FechaRealizacion</th>' +
+                                        '<th style="text-align: center">Archivo</th>' +
+                                        '</tr>' +
+                                        '</thead>' +
+                                        '<tbody>';
+
+                                    $.each(result, function (i, lectura) {
+
+                                        // Agregar una clase CSS a la celda en función del valor de lectura.estado
+                                        var estadoClass = "";
+                                        if (lectura.estado == "Pendiente") {
+                                            estadoClass = "warning";
+                                        } else if (lectura.estado == "Realizada") {
+                                            estadoClass = "success";
+                                        }
+
+                                        // Formatear la fecha si es distinta de "--"
+                                        var fechaRealizacion = lectura.fechaRealizacion;
+                                        if (fechaRealizacion != "--") {
+                                            var fecha = new Date(fechaRealizacion);
+                                            fechaRealizacion = formatearFecha(fecha);
+                                        }
+
+                                        tabla += '<tr>' +
+                                            '<td>' + lectura.vivienda_Id + '</td>' +
+                                            '<td>' + "<a class='btn btn-" + estadoClass + " text-white' style='width:100px;'>" + lectura.estado + "</a>" + '</td>' +
+                                            '<td>' + lectura.valorLectura + " m<sup>3</sup>" + '</td>' +
+                                            '<td>' + fechaRealizacion + '</td>' +
+                                            // Agregar un botón para ver el archivo
+                                            '<td><button class="btn btn-primary ver-archivo" data-id="' + lectura.id + '" data-valor="' + lectura.valorLectura + '">Ver</button></td>' +
+                                            '</tr>';
+                                    });
+
+                                    tabla += '</tbody></table>';
+
+                                    // Agregar el contenedor con la nueva tabla en la fila seleccionada
+                                    row.child(tabla).show();
+
+                                    // Agregar un evento de clic a los botones para ver el archivo
+                                    $('.ver-archivo').on('click', function () {
+                                        var id = $(this).data('id');
+                                        var valor = $(this).data('valor');
+
+                                        // Realizar una solicitud AJAX con el id como parámetro
+                                        $.ajax({
+                                            url: '@Url.Action("ObtenerArchivo", "Lecturas")',
+                                            type: 'GET',
+                                            data: { id: id },
+                                            success: function (result) {
+                                                // Mostrar una ventana emergente con SweetAlert2 y la imagen en base64 recibida en la respuesta
+                                                Swal.fire({
+                                                    imageUrl: 'data:image/png;base64,' + result.archivo,
+                                                    imageAlt: 'Archivo',
+                                                    showCancelButton: true,
+                                                    showDenyButton: true,
+                                                    confirmButtonText: 'Aceptar',
+                                                    denyButtonText: 'Rechazar',
+                                                    cancelButtonText: 'Cancelar',
+                                                    showCloseButton: false,
+                                                    html: '<div id="valor-text" class="valor">' + valor + '</div><button id="corregir-button" class="swal2-styled swal2-confirm">Corregir</button>',
+                                                    didOpen: () => {
+                                                        $('#corregir-button').on('click', () => {
+                                                            Swal.fire({
+                                                                title: 'Corregir',
+                                                                imageUrl: 'data:image/png;base64,' + result.archivo,
+                                                                imageAlt: 'Archivo',
+                                                                input: 'number',
+                                                                inputAttributes: {
+                                                                    min: 0,
+                                                                    max: 99999.99,
+                                                                    step: 0.01
+                                                                },
+                                                                inputValidator: (value) => {
+                                                                    if (!value || !/^\d{1,5}(\.\d{1,2})?$/.test(value)) {
+                                                                        return 'Por favor ingresa un número con cinco dígitos enteros y dos decimales';
+                                                                    }
+                                                                },
+                                                                showCancelButton: true
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    // Realizar una solicitud AJAX con el id, el string "Aceptar" y el valor ingresado como parámetros
+                                                                    $.ajax({
+                                                                        url: '@Url.Action("ActualizarArchivo", "Lecturas")',
+                                                                        type: 'POST',
+                                                                        data: { id: id, accion: 'Corregir', correccion: result.value },
+                                                                        success: function (result) {
+                                                                            // Aquí puedes manejar la respuesta del servidor
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        });
+                                                    }
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // Realizar una solicitud AJAX con el id y el string "Aceptar" como parámetros
+                                                        $.ajax({
+                                                            url: '@Url.Action("ActualizarArchivo", "Pagos")',
+                                                            type: 'POST',
+                                                            data: { id: id, accion: 'Aceptar' },
+                                                            success: function (result) {
+                                                                // Aquí puedes manejar la respuesta del servidor
+                                                            }
+                                                        });
+                                                    } else if (result.isDenied) {
+                                                        // Realizar una solicitud AJAX con el id y el string "Rechazar" como parámetros
+                                                        $.ajax({
+                                                            url: '@Url.Action("ActualizarArchivo", "Pagos")',
+                                                            type: 'POST',
+                                                            data: { id: id, accion: 'Rechazar' },
+                                                            success: function (result) {
+                                                                // Aquí puedes manejar la respuesta del servidor
+                                                            }
+                                                        });
+                                                    }
+                                                });
+
+
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+
+
+</script>
+
+@*@section scriptsdown {
+
+    <script src="~/js/TablaCatalogos.js"></script>
+}*@

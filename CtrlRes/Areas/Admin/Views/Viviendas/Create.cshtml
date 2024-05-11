@@ -1,0 +1,451 @@
+﻿@model CtrlRes.Models.ViewModels.ViviendasCreateViewModel
+
+@{
+    ViewData["Title"] = "Agregar vivienda";
+}
+
+<style>
+
+    /* Agregamos los estilos para la clase 'active-header' */
+    .step-header.active-header {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    input[readonly], select[readonly] {
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
+        color: #888;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+
+    @@media print {
+
+        body * {
+            visibility: hidden;
+        }
+
+        #swal-content, #swal-content * {
+            visibility: visible;
+        }
+
+        #swal-content {
+            left: 0;
+            top: 0;
+        }
+
+        @@page {
+            margin: 0;
+        }
+    }
+
+</style>
+
+<div class="container-fluid mt-5">
+    <form method="post" id="create-user-form" action="@Url.Action("Create", "Viviendas")" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-4 ">
+                <div class="card mb-3 h-100" id="vivienda-container">
+                    <div class="card-header step-header">
+                        <h5 class="card-title">Vivienda</h5>
+                        <span class="badge badge-primary float-right">Paso 1 de 3</span>
+                    </div>
+                    <div class="card-body">
+
+                        @*                        <div class="form-group">
+                        <label asp-for="Viviendas.Id">Id</label>
+                        <input asp-for="Viviendas.Id" type="text" class="form-control" id="Id" required />
+                        </div>*@
+                        <div class="form-group">
+                            <label asp-for="Viviendas.Numero">Número o identificador</label>
+                            <input asp-for="Viviendas.Numero" class="form-control" required maxlength="20" id="vivienda_numero" data-error="El número o identificador es requerido" />
+                            <div class="invalid-feedback"></div>
+                            <span id="numero-exists-message" style="display: none; color: red;">El número o identificador ya existe en la base de datos</span>
+                            @*<small class="form-text text-muted d-block" style="text-align: right;">Máximo 20 carácteres.</small>*@
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Viviendas.MedidorAgua"># Medidor de agua</label>
+                            <input asp-for="Viviendas.MedidorAgua" class="form-control" required maxlength="20" data-error="El número o identificador es requerido" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Viviendas.Privada_Id">Privada</label>
+                            <select asp-for="Viviendas.Privada_Id" class="form-control" id="privada_select" required data-error="Debe seleccionar una privada">
+                                <option value="">Seleccione una opción</option>
+                                @foreach (var privada in ViewBag.Privadas)
+                                {
+                                    <option value="@privada.IdPriv">@privada.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback"></div>
+                            <input type="hidden" asp-for="Viviendas.Privada_Id" />
+                        </div>
+                        <input type="button" id="btnVivienda" value="Continuar" class="btn btn-secondary mt-3" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card mb-3 h-100" id="propietario-container" style="display:">
+                    <div class="card-header step-header">
+                        <h5 class="card-title">Propietario</h5>
+                        <span class="badge badge-primary float-right">Paso 2 de 3</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Propietarios.Nombre">Nombre</label>
+                            <input asp-for="Propietarios.Nombre" type="text" class="form-control" required data-error="El nombre es requerido y debe tener menos de 200 caracteres" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Propietarios.Celular">Celular</label>
+                            <input asp-for="Propietarios.Celular" type="text" class="form-control" required data-error="El vehículo es requerido y debe tener menos de 200 caracteres" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Propietarios.Vehiculo">Vehiculo</label>
+                            <input asp-for="Propietarios.Vehiculo" type="text" class="form-control" required data-error="El vehículo es requerido y debe tener menos de 200 caracteres" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Propietarios.Vivienda_Id">Vivienda</label>
+                            <input asp-for="Propietarios.Vivienda_Id" type="text" class="form-control" id="Vivienda_Id" required />
+                        </div>
+                        <input type="button" id="btnPropietario" value="Continuar" class="btn btn-secondary mt-3" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card mb-3 h-100" id="arrendatario-container" style="display:">
+                    <div class="card-header step-header">
+                        <h5 class="card-title">Arrendatario</h5>
+                        <div class="row">
+
+                            <span class="badge badge-primary float-right col-sm-3">Paso 3 de 3</span>
+
+                            <div class="form-check form-switch d-flex justify-content-end col-sm-9">
+                                <input class="form-check-input text-end" type="checkbox" id="mySwitch" value="" readonly="">
+                                <label class="form-check-label text-start" for="mySwitch"> &nbsp;No hay arrendatario</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" id="arrendatario-container-body">
+                        <div class="form-group">
+                            <label asp-for="Arrendatarios.Nombre">Nombre</label>
+                            <input asp-for="Arrendatarios.Nombre" type="text" class="form-control" id="arrendatario_nombre" required />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Arrendatarios.Celular">Celular</label>
+                            <input asp-for="Arrendatarios.Celular" type="text" class="form-control" id="arrendatario_celular" required />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Arrendatarios.Vehiculo">Vehiculo</label>
+                            <input asp-for="Arrendatarios.Vehiculo" type="text" class="form-control" id="arrendatario_vehiculo" required />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Arrendatarios.Vivienda_Id">Vivienda</label>
+                            <input asp-for="Arrendatarios.Vivienda_Id" type="text" class="form-control" id="Vivienda_Id2" required />
+                        </div>
+                        <input id="arrendatario-submit" type="submit" value="Aceptar" class="btn btn-secondary mt-3" id="arrendatario_submit" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<button onclick="initialState()" class="btn btn-dark mt-3 ms-4"><b>REINICIAR FORMULARIOS</b></button>
+
+<script>
+
+    $(document).ready(function () {
+
+        initialState();
+
+
+        $('#vivienda_numero').on('input', function () {
+            var numero = $(this).val();
+            $.ajax({
+                url: 'CheckNumero',
+                type: 'POST',
+                data: { numero: numero },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#numero-exists-message').show();
+                        $("#btnVivienda").prop('disabled', true);
+                    } else {
+                        $('#numero-exists-message').hide();
+                        $("#btnVivienda").prop('disabled', false);
+                    }
+                },
+                error: function () {
+                    alert("Error al tratar de comunicar con el servidor, revisa tu conexión y recarga la página..");
+                    $("#btnVivienda").prop('disabled', true);
+                    $("#btnPropietario").prop('disabled', true);
+                    $("#arrendatario-submit").prop('disabled', true);
+                }
+            });
+        });
+
+        $("select").change(function () {
+            $("input[type='hidden']").val($(this).val());
+        });
+
+        $("#btnVivienda").on("click", function () {
+
+            //
+
+            var form = document.getElementById("vivienda-container");
+            var fields = form.querySelectorAll("input");
+            var fieldsSelect = form.querySelectorAll("select");
+            var valid = true;
+
+
+            for (var i = 0; i < fieldsSelect.length; i++) {
+                if (fieldsSelect[i].checkValidity()) {
+                    fieldsSelect[i].classList.remove("is-invalid");
+                    var errorElem = fieldsSelect[i].nextElementSibling;
+                    if (errorElem && errorElem.classList.contains("invalid-feedback")) {
+                        errorElem.textContent = "";
+                        errorElem.style.display = "none";
+                    }
+                } else {
+                    fieldsSelect[i].classList.add("is-invalid");
+                    var errorElem = fieldsSelect[i].nextElementSibling;
+                    if (errorElem && errorElem.classList.contains("invalid-feedback")) {
+                        errorElem.textContent = fields[i].dataset.error;
+                        errorElem.style.display = "block";
+                    }
+                    valid = false;
+                }
+            }
+
+            for (var i = 0; i < fields.length; i++) {
+                if (fields[i].checkValidity()) {
+                    fields[i].classList.remove("is-invalid");
+                    var errorElem = fields[i].nextElementSibling;
+                    if (errorElem && errorElem.classList.contains("invalid-feedback")) {
+                        errorElem.textContent = "";
+                        errorElem.style.display = "none";
+                    }
+                } else {
+                    fields[i].classList.add("is-invalid");
+                    var errorElem = fields[i].nextElementSibling;
+                    if (errorElem && errorElem.classList.contains("invalid-feedback")) {
+                        errorElem.textContent = fields[i].dataset.error;
+                        errorElem.style.display = "block";
+                    }
+                    valid = false;
+                }
+            }
+            if (valid) {
+                ///
+                const propietarioHeader = document.querySelector('#propietario-container .card-header');
+                const viviendaHeader = document.querySelector('#vivienda-container .card-header');
+                propietarioHeader.classList.add('active-header');
+                viviendaHeader.classList.remove('active-header');
+
+                $("#propietario-container :input").prop('readonly', false);
+                $("#vivienda-container :input").prop('readonly', true);
+
+                $("select").prop("disabled", true);
+                $("#Vivienda_Id").prop('readonly', true);
+
+                var Vivienda_Numero = document.getElementById("vivienda_numero");
+                document.getElementById("Vivienda_Id").value = "Vivienda" + Vivienda_Numero.value;
+                document.getElementById("Vivienda_Id2").value = "Vivienda" + Vivienda_Numero.value;
+            }
+
+        });
+
+        $("#btnPropietario").on("click", function () {
+
+            //
+
+            var form = document.getElementById("propietario-container");
+            var fields = form.querySelectorAll("input");
+            var valid = true;
+
+            for (var i = 0; i < fields.length; i++) {
+                if (fields[i].checkValidity()) {
+                    fields[i].classList.remove("is-invalid");
+                    var errorElem = fields[i].nextElementSibling;
+                    if (errorElem && errorElem.classList.contains("invalid-feedback")) {
+                        errorElem.textContent = "";
+                        errorElem.style.display = "none";
+                    }
+                } else {
+                    fields[i].classList.add("is-invalid");
+                    var errorElem = fields[i].nextElementSibling;
+                    if (errorElem && errorElem.classList.contains("invalid-feedback")) {
+                        errorElem.textContent = fields[i].dataset.error;
+                        errorElem.style.display = "block";
+                    }
+                    valid = false;
+                }
+            }
+            if (valid) {
+                ///
+
+                const arrendatarioHeader = document.querySelector('#arrendatario-container .card-header');
+                const propietarioHeader = document.querySelector('#propietario-container .card-header');
+                arrendatarioHeader.classList.add('active-header');
+                propietarioHeader.classList.remove('active-header');
+
+                $("#arrendatario-container :input").prop('readonly', false);
+                $("#propietario-container :input").prop('readonly', true);
+
+                $("#Vivienda_Id2").prop('readonly', true);
+            }
+        });
+
+
+    });
+
+
+</script>
+
+<script>
+    // Función para procesar la respuesta del controlador
+    function procesarRespuesta(json) {
+        // Accede a los datos del objeto JSON
+        var titulo = json.Titulo;
+        var descripcion = json.Descripcion;
+
+        // Crea dinámicamente elementos HTML para mostrar los datos
+        var cardTitle = document.createElement('h4');
+        cardTitle.innerHTML = titulo;
+        cardBody.appendChild(cardTitle);
+
+        var cardText = document.createElement('p');
+        cardText.innerHTML = descripcion;
+        cardBody.appendChild(cardText);
+    }
+
+    // Agrega un controlador de eventos al formulario para interceptar el envío
+    document.getElementById("create-user-form").addEventListener("submit", function (event) {
+        // Evita el comportamiento predeterminado del formulario (enviar la solicitud)
+        event.preventDefault();
+
+        // Envía la solicitud al controlador utilizando AJAX
+        $.ajax({
+            url: this.action,
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (json) {
+
+                var user2Html = '';
+                var user1Class = 'col-sm-12 card';
+                if (json.user2.nombre != '--') {
+                    user2Html = `<div class="col-sm-6 card">
+                    <p><b>Nombre:</b> <br> ${json.user2.nombre}</p>
+                    <p><b>Tipo de usuario:</b> <br> ${json.user2.usuarioTipo}</p>
+                    <p><b>Privada:</b> <br> ${json.vivienda.privada_Id}</p>
+                    <p><b>Vivienda:</b> <br> ${json.vivienda.id}</p>
+                    <p><b>Nombre de usuario:</b> <br> ${json.user2.userName}</p>
+                    <p><b>Contraseña:</b> <br> ${json.user2.contrasena}</p>
+                </div>`;
+
+                    user1Class = 'col-sm-6 card';
+                }
+
+                Swal.fire({
+                    title: 'Información de usuarios',
+                    html: `<div id="swal-content" class="row container-fluid  mx-auto print">
+                            <div class="${user1Class}">
+                            <p><b>Nombre:</b> <br> ${json.user1.nombre}</p>
+                            <p><b>Tipo de usuario:</b> <br> ${json.user1.usuarioTipo}</p>
+                            <p><b>Privada:</b> <br> ${json.vivienda.privada_Id}</p>
+                            <p><b>Vivienda:</b> <br> ${json.vivienda.id}</p>
+                            <p><b>Nombre de usuario:</b> <br> ${json.user1.userName}</p>
+                            <p><b>Contraseña:</b> <br> ${json.user1.contrasena}</p>
+                        </div>
+                        ${user2Html}
+                    </div>`,
+                    showCancelButton: false,
+                    confirmButtonText: 'Salir',
+                    allowOutsideClick: false,
+                    footer: '<button onclick="printSwalContent()">Imprimir</button>'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        initialState();
+                    }
+                });
+            }
+
+        });
+    });
+
+    //
+
+    const mySwitch = document.querySelector('#mySwitch');
+    mySwitch.addEventListener('click', () => {
+        if (mySwitch.checked) {
+
+            $("#arrendatario-container-body :input").prop('readonly', true);
+            $("#arrendatario-submit").prop('readonly', false);
+
+            $("#arrendatario_nombre").val("--");
+            $("#arrendatario_celular").val("--");
+            $("#arrendatario_vehiculo").val("--");
+
+        } else {
+
+            $("#arrendatario-container-body :input").prop('readonly', false);
+            $("#Vivienda_Id2").prop('readonly', true);
+
+            $("#arrendatario_nombre").val("");
+            $("#arrendatario_celular").val("");
+            $("#arrendatario_vehiculo").val("");
+
+        }
+    });
+
+    //
+
+
+    function initialState() {
+        $("#propietario-container :input").prop('readonly', true);
+        $("#arrendatario-container :input").prop('readonly', true);
+        $("#vivienda-container :input").prop('readonly', false);
+        $("select").prop("disabled", false);
+
+        const propietarioHeader = document.querySelector('#propietario-container .card-header');
+        const arrendatarioHeader = document.querySelector('#arrendatario-container .card-header');
+        const viviendaHeader = document.querySelector('#vivienda-container .card-header');
+        propietarioHeader.classList.remove('active-header');
+        arrendatarioHeader.classList.remove('active-header');
+        viviendaHeader.classList.add('active-header');
+
+        var propietarioContainer = document.getElementById("propietario-container");
+        var arrendatarioContainer = document.getElementById("arrendatario-container");
+        var viviendaContainer = document.getElementById("vivienda-container");
+
+        var inputs = propietarioContainer.getElementsByTagName('input');
+        for (var i = 0; i < (inputs.length - 1); i++) {
+            inputs[i].value = '';
+        }
+
+        var inputs = arrendatarioContainer.getElementsByTagName('input');
+        for (var i = 0; i < (inputs.length - 1); i++) {
+            inputs[i].value = '';
+        }
+
+        var inputs = viviendaContainer.getElementsByTagName('input');
+        for (var i = 0; i < (inputs.length - 1); i++) {
+            inputs[i].value = '';
+        }
+
+        var selects = viviendaContainer.getElementsByTagName('select');
+        for (var i = 0; i < selects.length; i++) {
+            selects[i].selectedIndex = 0;
+        }
+    }
+
+    function printSwalContent() {
+        window.print();
+    }
+
+</script>

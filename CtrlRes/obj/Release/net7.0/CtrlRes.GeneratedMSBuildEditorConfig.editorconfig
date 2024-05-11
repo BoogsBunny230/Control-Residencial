@@ -1,0 +1,239 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = CtrlRes
+build_property.RootNamespace = CtrlRes
+build_property.ProjectDir = C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/AppRoles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXBwUm9sZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/AppRoles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXBwUm9sZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/ArchivosPDF/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXJjaGl2b3NQREZcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/ArchivosPDF/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXJjaGl2b3NQREZcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Arrendatarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXJyZW5kYXRhcmlvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Arrendatarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXJyZW5kYXRhcmlvc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Arrendatarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXJyZW5kYXRhcmlvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Asambleas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQXNhbWJsZWFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Comunidad/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29tdW5pZGFkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Egresos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRWdyZXNvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Egresos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRWdyZXNvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Herramientas/Logotipo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSGVycmFtaWVudGFzXExvZ290aXBvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Lecturas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTGVjdHVyYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Lecturas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTGVjdHVyYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Mantenimientos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFudGVuaW1pZW50b3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Notificaciones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTm90aWZpY2FjaW9uZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Pagos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGFnb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Pagos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGFnb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Privadas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJpdmFkYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Privadas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJpdmFkYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Privadas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJpdmFkYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Propietarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvcGlldGFyaW9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Propietarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvcGlldGFyaW9zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Propietarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvcGlldGFyaW9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Proveedores/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvdmVlZG9yZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Proveedores/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvdmVlZG9yZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Proveedores/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvdmVlZG9yZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Sanciones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2FuY2lvbmVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/TAGs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVEFHc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/TAGs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVEFHc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/TAGs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVEFHc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Usuarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Viviendas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVml2aWVuZGFzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/Viviendas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVml2aWVuZGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Cliente/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2xpZW50ZVxWaWV3c1xIb21lXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Cliente/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2xpZW50ZVxWaWV3c1xIb21lXFByaXZhY3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Cliente/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2xpZW50ZVxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Cliente/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2xpZW50ZVxWaWV3c1xfVmlld1N0YXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/Shared/_Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZiYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/Shared/_VistaCrearVolver.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WaXN0YUNyZWFyVm9sdmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Guillermo/Documents/Pc/CtrlRes_09072023/CtrlRes/CtrlRes/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-84a7k7v04a

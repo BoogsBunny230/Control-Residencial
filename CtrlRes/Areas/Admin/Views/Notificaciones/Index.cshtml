@@ -1,0 +1,331 @@
+﻿@model CtrlRes.Models.Notificaciones
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WhatsApp View</title>
+    <style>
+
+        /* Estilos para el contenedor con forma de teléfono */
+        /* Estilos para pantallas grandes */
+        .phone-container {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 540px;
+            height: 93vh;
+            margin-right: 50px;
+            border-radius: 35px;
+            overflow: hidden;
+            background-color: #000;
+            box-shadow: 30px 50px 100px #313131;
+        }
+
+        /* Estilos para pantallas pequeñas */
+        @@media (max-width: 600px) {
+            .phone-container
+
+        {
+            width: 80vw;
+            height: 90vh;
+        } }
+
+        @@media (max-width: 800px) {
+            .phone-container {
+                height: 90vh;
+            }
+        }
+
+            .phone-container:before {
+                content: "";
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+
+            .phone-container:after {
+                content: "";
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #ccc;
+            }
+
+            .phone-container .screen {
+                border-radius: 26px;
+                position: absolute;
+                top: 40px;
+                left: 10px;
+                right: 10px;
+                bottom: 30px;
+                background-color: #fafafa;
+            }
+
+        .phone-screen {
+            align-items: center;
+            background-color: #000;
+            border-radius: 26px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            perspective: 460px;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Estilos para el formulario dentro del teléfono */
+        form.phone-form {
+            padding: 20px;
+
+        }
+
+            form.phone-form label {
+                font-weight: bold;
+            }
+
+            form.phone-form input[type="text"],
+            form.phone-form textarea,
+            form.phone-form select{
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                resize: vertical;
+            }
+
+            form.phone-form input[type="submit"] {
+                background-color: #25d366;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                form.phone-form input[type="submit"]:hover {
+                    background-color: #128c7e;
+                }
+
+        /* Estilos para el formulario en la mitad izquierda */
+        form.half-form {
+            width: 50%;
+            margin-left: 135px;
+            padding: 20px;
+        }
+
+            form.half-form label {
+                font-weight: bold;
+            }
+
+            form.half-form input[type="text"],
+            form.half-form textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                resize: vertical;
+            }
+
+            form.half-form input[type="submit"] {
+                background-color: #25d366;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                form.half-form input[type="submit"]:hover {
+                    background-color: #4FCE5D;
+                    color: #fff;
+                }
+
+        /* Estilos para la sección que contiene los dos formularios */
+        .section-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            /* margin: 100px 50px; */
+        }
+
+        /* Estilos generales para los botones de los formularios */
+        button {
+            background-color: transparent;
+            border: none;
+            color: #4FCE5D;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            button:hover {
+                text-decoration: underline;
+            }
+
+        i.fab.fa-whatsapp {
+            color: #4FCE5D;
+        }
+
+        body {
+            background-color: #868686;
+        }
+    </style>
+
+    </head>
+  <body>
+      <br/>
+
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="phone-container">
+            <div class="screen">
+                <form method="post" asp-action="Index" class="phone-form">
+                    <h2>Notificación (<i class="fab fa-whatsapp"></i>)</h2> <br />
+
+                    <label asp-for="Titulo">Titulo:</label>
+					<input asp-for="Titulo" type="text" id="Titulo" required>
+
+                    <label>Privada:</label>
+                    <select class="form-select mb-3" id="privada_select" required data-error="Debe seleccionar una privada">
+                        <option value="">Seleccione una opción</option>
+                        @foreach (var privada in ViewBag.Privadas)
+                        {
+                            <option value="@privada.IdPriv">@privada.Nombre</option>
+                        }
+                    </select>
+
+                    <label asp-for="Vivienda_Id">Vivienda:</label>
+                    <select asp-for="Vivienda_Id" id="Viviendas-select" class="form-select mb-3" disabled>
+                        <option value="">Seleccione una opción</option>
+                    </select>
+
+                    <label>Propietario:</label>
+                    <input type="text" id="propietario-nombre" disabled>
+                    <label>Arrendatario:</label>
+                    <input type="text" id="arrendatario-nombre" disabled>
+
+                    <div class="form-row mb-2">
+                        <label class="name mb-2">Enviar a:</label>
+                        <div class="value d-flex justify-content-end">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="a" id="propietario" value="Propietario">
+                                <label class="form-check-label" for="propietario">Propietario</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="a" id="arrendatario" value="Arrendatario">
+                                <label class="form-check-label" for="arrendatario">Arrendatario</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="a" id="ambos" value="Administrativo">
+                                <label class="form-check-label" for="administrativo">Ambos</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input asp-for="Para" type="hidden" id="seleccion_para">
+
+                    <label asp-for="Mensaje">Mensaje:</label>
+                    <textarea asp-for="Mensaje" id="mensaje" name="mensaje" rows="4" required></textarea>
+
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/popper.min.js"></script>
+
+</body>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#privada_select").change(function () {
+            $("#propietario-nombre").val("");
+            $("#arrendatario-nombre").val("");
+            $("#form-container :input").prop('disabled', true);
+            $("#concepto-container :input").prop('disabled', true);
+            var foreignKey = $("#privada_select").val();
+
+            if (foreignKey !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Notificaciones/GetViviendas?foreignKey=" + foreignKey,
+                    success: function (data) {
+                        $("#Viviendas-select").prop('disabled', false);
+                        $("#Viviendas-select").empty();
+                        $("#Viviendas-select").append('<option value="">Seleccione una opción</option>');
+                        $.each(data, function (i, item) {
+                            console.log(item);
+                            $("#Viviendas-select").append('<option value="' + item.value + '">' + item.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                        $("#Viviendas-select").prop('disabled', true);
+                    }
+                });
+            } else {
+                $("#data-selector").empty();
+                $("#data-selector").append('<option value="">Seleccione una privada primero</option>');
+            }
+        });
+
+        $("#Viviendas-select").change(function () {
+            var elementId = $("#Viviendas-select").val();
+            //document.querySelector('#Vivienda_Id').value = elementId;
+
+            if (elementId !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Notificaciones/GetPropArre?foreignKey=" + elementId,
+                    success: function (data) {
+                        $("#propietario-nombre").val(data.propietarioNombre);
+                        $("#arrendatario-nombre").val(data.arrendatarioNombre);
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                    }
+                });
+
+            } else {
+                $("#propietario-nombre").val("");
+                $("#arrendatario-nombre").val("");
+            }
+        });
+
+        const tipo_input = document.getElementById('seleccion_para');
+        const checkboxes = document.querySelectorAll('input[type=radio][name=a]');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function () {
+                tipo_input.value = this.value;
+
+            });
+        });
+
+    });
+
+</script>
+
+
+<style>
+
+    footer {
+        display: none;
+    }
+</style>
+</html>

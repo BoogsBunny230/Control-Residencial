@@ -1,0 +1,92 @@
+﻿@model RegistroLecturas
+
+<div class="container-fluid" style="background-color: dimgrey">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <br />
+            <h2 class="text-center" style="color: white">Agendar lectura</h2>
+            <form asp-action="Create">
+                <div class="form-group">
+                    <label asp-for="Folio" style="color: white">Folio</label>
+                    <input asp-for="Folio" class="form-control" id="folio"/>
+                    <span id="numero-exists-message" style="display: none; color: red;">El número o identificador ya existe en la base de datos</span>
+                </div>
+
+                <div class="form-row ">
+                    <label style="color: white">Tipo de lectura:</label>
+                    <div class="value d-flex justify-content-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="propietario" value="Agua">
+                            <label class="form-check-label" style="color: white">Agua</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="arrendatario" value="Luz">
+                            <label class="form-check-label" style="color: white">Luz</label>
+                        </div>
+                    </div>
+                </div>
+
+                <input asp-for="TipLec" type="hidden" id="tipo_seleccionado">
+
+                <div class="form-group">
+                    <label asp-for="Privada_Id" style="color: white">Privada</label>
+                    <select asp-for="Privada_Id" asp-items="@ViewBag.Privadas" class="form-control"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FechaProgramada" style="color: white">Fecha:</label>
+                    <input asp-for="FechaProgramada" type="datetime-local" id="Fecha" class="form-control" />
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary" style="width: 40vh; margin-bottom: 40px" id="btn"><i class="fas fa-save"></i> Guardar</button>
+                <br />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#folio').on('input', function () {
+            var folio = $(this).val();
+            $.ajax({
+                url: 'CheckFolio',
+                type: 'POST',
+                data: { folio: folio },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#numero-exists-message').show();
+                        $("#btn").prop('disabled', true);
+                    } else {
+                        $('#numero-exists-message').hide();
+                        $("#btn").prop('disabled', false);
+                    }
+                },
+                error: function () {
+                    alert("Error al tratar de comunicar con el servidor, revisa tu conexión y recarga la página..");
+                    $("#btn").prop('disabled', true);
+                }
+            });
+        });
+
+        //
+
+        const checkboxes = document.querySelectorAll('input[type=radio][name=tipo]');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function () {
+
+                if(this.value == "Agua")
+                $("#tipo_seleccionado").val("Agua");
+
+                if (this.value == "Luz")
+                $("#tipo_seleccionado").val("Luz");
+
+            });
+        });
+
+    });
+
+</script>

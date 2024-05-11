@@ -1,0 +1,57 @@
+﻿@model CtrlRes.Models.Arrendatarios
+
+@{
+    ViewData["Title"] = "Agregar arrendatario";
+}
+
+<br />
+<br />
+<h3 class="text-center"> Agregar a un nuevo arrendatarios</h3>
+
+<div class="row">
+    <div class="row px-5 mx-auto border col-10" style="position:center; width:1000px">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Nombre" style="font-size:21px">Identificador de la vivienda:</label>
+                <input asp-for="Nombre" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Celular" style="font-size:21px">Nombre del arrendatario:</label>
+                <input asp-for="Celular" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Celular" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Celular" style="font-size:21px">Número de celular para enviar notificaciones:</label>
+                <input asp-for="Celular" class="form-control" style="font-size:18px" type="number" />
+                <span asp-validation-for="Celular" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Vehiculo" style="font-size:21px">Número de celular para enviar notificaciones:</label>
+                <input asp-for="Vehiculo" class="form-control" style="font-size:18px" type="number" />
+                <span asp-validation-for="Vehiculo" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Vivienda_Id" style="font-size:21px">Pertene al propietario/a:</label>
+                <div style="font-size:18px" id="PropietarioSelect">
+                    @Html.DropDownListFor(model => model.Vivienda_Id, new SelectList(ViewBag.Viviendas, "NomProp", "NomProp"),
+                    "Seleccione un/a propietario/a", new { @class = "form-control" })
+                </div>
+                <span asp-validation-for="Vivienda_Id" class="text-danger"></span>
+            </div>
+            &nbsp;
+            @*Volver*@
+            <div class="form-group row">
+                <div class="col-12">
+                    <partial name="_VistaCrearVolver" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

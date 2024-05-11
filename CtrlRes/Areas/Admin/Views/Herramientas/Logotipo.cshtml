@@ -1,0 +1,98 @@
+﻿@model CtrlRes.Models.Herramientas
+
+@{
+    ViewData["Title"] = "Logotipo";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div id="imageContainer" class="border rounded">
+                <img src="data:image;base64,@Model.Contenido" alt="Logotipo" />
+                <div id="imageInfo"></div>
+            </div>
+            <br />
+            <input type="file" id="inputFile" accept="image/*" class="form-control" />
+            <br />
+            <button id="btnActualizar" class="btn btn-primary">Actualizar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Mostrar información de la imagen
+        var img = new Image();
+        img.onload = function () {
+            var width = this.width;
+            var height = this.height;
+            var aspectRatio = width / height;
+            if ((aspectRatio.toFixed(2)) == (1.78)) { $("#imageInfo").text(width + "x" + height + " | " + 16 + ":9"); }
+            else{$("#imageInfo").text(width + "x" + height + " | " + aspectRatio.toFixed(2) + ":1");}
+        }
+        img.src = "@Url.Action("ObtenerImagen", "Herramientas")";
+        console.log(img.src);
+    });
+
+    // Actualizar imagen
+    $("#btnActualizar").on("click", function () {
+        // Deshabilitar el botón
+        $(this).prop("disabled", true);
+
+        var file = $("#inputFile")[0].files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var base64Image = e.target.result;
+                base64Image = base64Image.replace(/^data:image\/[a-z]+;base64,/, "");
+                $.ajax({
+                    url: "@Url.Action("ActualizarLogotipo", "Herramientas")",
+                    type: "POST",
+                    data: { idHerr: "@Model.IdHerr", logotipo: base64Image },
+                    success: function () {
+                        alert("Imagen actualizada");
+                        location.reload();
+                    },
+                    complete: function () {
+                        // Habilitar el botón
+                        $("#btnActualizar").prop("disabled", false);
+                    }
+                });
+            }
+            reader.readAsDataURL(file);
+        } else {
+            alert("Por favor seleccione una imagen");
+            // Habilitar el botón
+            $(this).prop("disabled", false);
+        }
+    });
+</script>
+
+<style>
+    #imageContainer {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        margin-top: 40px;
+    }
+
+        #imageContainer img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            max-width: 100%;
+            max-height: 100%;
+            margin: auto;
+            display: block;
+        }
+
+    #imageInfo {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: white;
+        text-shadow: 1px 1px black;
+    }
+</style>

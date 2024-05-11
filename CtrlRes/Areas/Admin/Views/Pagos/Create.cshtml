@@ -1,0 +1,43 @@
+﻿@model Pagos
+
+<div class="container-fluid" style="background-color: dimgrey">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <br/>
+            <h2 class="text-center" style="color: white">Nuevo concepto de pago</h2>
+            <form asp-action="Create">
+                <div class="form-group">
+                    <label asp-for="Vivienda_Id" style="color: white">Vivienda</label>
+                    <select asp-for="Vivienda_Id" asp-items="@ViewBag.Viviendas" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Para" style="color: white">¿A quién va dirigido?</label>
+                    <select asp-for="Para" class="form-control">
+                        <option value="Propietario">Propietario</option>
+                        <option value="Arrendatario">Arrendatario</option>
+                        <option value="Ambos">Ambos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Referencia" style="color: white">Referencia</label>
+                    <input asp-for="Referencia" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Concepto" style="color: white">Concepto</label>
+                    <input asp-for="Concepto" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Monto" style="color: white">Monto</label>
+                    <input asp-for="Monto" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="FechaLimite" style="color: white">Fecha Límite</label>
+                    <input type="datetime-local" id="FechaLimite" name="FechaLimite" class="form-control" required />
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary" style="width: 40vh; margin-bottom: 40px"><i class="fas fa-save"></i> Guardar</button>
+                <br />
+            </form>
+        </div>
+    </div>
+</div>

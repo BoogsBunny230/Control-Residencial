@@ -1,0 +1,438 @@
+﻿@model List<ArchivosPDF>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visualizador de PDF</title>
+	<!-- Referencia a la librería de jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Referencia a la librería de PDF.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+	<!-- Estilos CSS para el visualizador de PDF -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf_viewer.css" />
+	<style>
+		body {
+			display: flex;
+			flex-direction: row;
+			height: 100vh;
+			margin: 0;
+			padding: 0;
+		}
+
+		.pdf-viewer-container {
+			flex: 1;
+			width: 50%;
+			height: 100%;
+			background-color: #f2f2f2;
+			overflow: hidden;
+		}
+
+			.pdf-viewer-container::-webkit-scrollbar {
+			width: 12px;
+		}
+
+			.pdf-viewer-container::-webkit-scrollbar-thumb {
+			background-color: #fff;
+			border-radius: 6px;
+			border: 3px solid #111;
+		}
+
+		.pdf-selector-container {
+			flex: 1;
+			height: 100%;
+			width: 100%;
+			padding: 10px;
+			box-sizing: border-box;
+			background-color: #fafafa;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			order: 1;
+			float: right;
+		}
+
+		.pdf-selector-container2 {
+			flex: 1;
+			height: 50%;
+			width: 100%;
+			padding: 10px;
+			box-sizing: border-box;
+			background-color: #e6e6e6;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			order: 1;
+			float: right;
+		}
+
+		.pdf-form-container {
+			flex: 1;
+			height: 50%;
+			width: 50%;
+			background-color: #f2f2f2;
+			overflow: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			float:right;
+		}
+
+		.pdf-selector {
+			padding: 10px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 2px 4px rgba(0,0,0,.3);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+			.pdf-selector label {
+				font-size: 20px;
+				margin-bottom: 10px;
+			}
+
+			.pdf-selector select {
+				font-size: 16px;
+				padding: 5px 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				background-color: #f9f9f9;
+				width: 100%;
+				margin-bottom: 10px;
+				box-sizing: border-box;
+			}
+
+			.pdf-selector button {
+				font-size: 16px;
+				padding: 5px 10px;
+				background-color: #4CAF50;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+
+				.pdf-selector button:hover {
+					background-color: #3e8e41;
+				}
+
+		body {
+			padding-top: 40px;
+		}
+
+		.contenedor {
+			width: 100%;
+			display: flex;
+			height: 100%;
+		}
+
+		.caja {
+			height: 100px;
+			/*border: 1px solid black;*/
+		}
+
+		.caja-1 {
+			flex: 1;
+		}
+
+		.contenedor-derecho {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.caja-2 {
+			flex: 1;
+			border-bottom: 5px solid black;
+			border-left: 6px solid black;
+			border-right: 10px solid black;
+		}
+
+		.caja-3 {
+			flex: 1;
+			border-top: 5px solid black;
+			border-left: 6px solid black;
+			border-right: 10px solid black;
+		}
+
+		.contenedorOverFlow {
+			margin-top: 10px;
+			height: 200px;
+			overflow-y: auto;
+			border: 5px solid #333;
+			border-radius: 6px;
+			padding-left: 15px;
+			padding-right: 15px;
+			background-color: #fff;
+		}
+
+			.contenedorOverFlow::-webkit-scrollbar {
+				width: 12px;
+			}
+
+			.contenedorOverFlow::-webkit-scrollbar-thumb {
+				background-color: #fff;
+				border-radius: 6px;
+				border: 3px solid #111;
+			}
+
+		.container-fluid-1 {
+			margin-top: 10px;
+			height: 200px;
+			overflow-y: auto;
+			border: 5px solid #333;
+			border-radius: 6px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="contenedor">
+
+		<div class="pdf-viewer-container">
+			<object id="pdf-viewer" data="@Url.Action("MostrarPDF", new { url = "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf" })" type="application/pdf" width="100%" height="100%">
+				<p>Tu navegador no puede mostrar archivos PDF. Puedes descargar el archivo <a href="https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf">aquí</a>.</p>
+			</object>
+		</div>
+
+		<div class="contenedor-derecho" style="width:50%">
+			<div class="caja caja-2" styles="height:50% width:100%">
+				<div class="pdf-selector-container">
+					<h1><strong>Reglamento:</strong></h1>
+					<br />
+					<h2>Selecciona un archivo PDF:</h2>
+					@using (Html.BeginForm("Asignar", "ArchivosPDF", FormMethod.Post))
+					{
+						<div>
+							<label>IdPriv:</label>
+							@Html.DropDownList("IdPriv", new SelectList(ViewBag.Privadas, "IdPriv", "Nombre"))
+						</div>
+						<div>
+							<label>Id:</label>
+							@Html.DropDownList("Id", new SelectList(ViewBag.ArchivosPDF, "Id", "Nombre"))
+						</div>
+						<input type="submit" value="Asignar" />
+					}
+
+					<div>
+						<a asp-controller="ArchivosPDF" asp-action="Create" class="btn btn-outline-primary">Insertar PDF</a>
+						<div class="contenedorOverFlow">
+							<table class="table table-borderless">
+								<thead>
+									<tr>
+										<th>Nombre del archivo</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@item.Nombre</td>
+											<td>
+												<a class="btn btn-outline-dark" asp-controller="ArchivosPDF" asp-action="Descargar"
+											   asp-route-id="@item.Id">Descargar archivo</a>
+												<button class="btn btn-outline-dark viewButton" data-id="@item.Id">Ver</button>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="caja caja-3" styles="height:50% width:100%">
+				<div class="pdf-selector-container">
+					<h1><strong>Código Urbano:</strong></h1>
+					<br />
+					<h2>Selecciona un archivo PDF:</h2>
+					@using (Html.BeginForm("AsignarCodigoUrbano", "ArchivosPDF", FormMethod.Post))
+					{
+						<div>
+							<label>IdPriv:</label>
+							@Html.DropDownList("IdPriv", new SelectList(ViewBag.Privadas, "IdPriv", "Nombre"))
+						</div>
+						<div>
+							<label>Id:</label>
+							@Html.DropDownList("Id", new SelectList(ViewBag.ArchivosPDF, "Id", "Nombre"))
+						</div>
+						<input type="submit" value="Asignar" />
+					}
+
+					@*				<form id="uploadForm" asp-action="Crear" asp-controller="Reglamento" enctype="multipart/form-data">
+					<div class="form-group">
+					<label asp-for="Id" class="control-label"></label>
+					<input asp-for="Id" class="form-control" />
+					</div>
+					<div class="form-group">
+					<label asp-for="Nombre" class="control-label"></label>
+					<input asp-for="Nombre" class="form-control" />
+					</div>
+					<div class="form-group">
+					<label asp-for="ArchivoPDF" class="control-label"></label>
+					<input asp-for="ArchivoPDF" type="file" class="form-control" />
+					</div>
+					<button type="submit" class="btn btn-primary">Guardar</button>
+					</form>*@
+
+					<div>
+						<a asp-controller="ArchivosPDF" asp-action="Create" class="btn btn-outline-primary">Insertar PDF</a>
+						<div class="contenedorOverFlow">
+							<table class="table table-borderless">
+								<thead>
+									<tr>
+										<th>Nombre del archivo</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@item.Nombre</td>
+											<td>
+												<a class="btn btn-outline-dark" asp-controller="ArchivosPDF" asp-action="Descargar"
+											   asp-route-id="@item.Id">Descargar archivo</a>
+												<button class="btn btn-outline-dark viewButton" data-id="@item.Id">Ver</button>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		//$(document).ready(function () {
+		//	// Manejador de eventos para hacer clic en los enlaces PDF
+		//	$('.pdf-link').click(function (e) {
+		//		e.preventDefault();
+		//		var url = $(this).data('url');
+
+		//		// Actualizar el visualizador de PDF
+		//		var pdfViewer = $('#pdf-viewer');
+		//		pdfViewer.empty(); // Vaciar contenido de pdf-viewer
+		//		var pdfObject = $('<object>').attr({
+		//			'data': url,
+		//			'type': 'application/pdf',
+		//			'width': '100%',
+		//			'height': '100%',
+		//			'id': 'pdf-object'
+		//		}).html('Tu navegador no puede mostrar archivos PDF. Puedes descargar el archivo <a href="' + url + '">aquí</a>.');
+		//		pdfViewer.append(pdfObject);
+
+		//		// Esperar a que el objeto PDF se haya cargado completamente antes de reemplazarlo
+		//		pdfObject.on('load', function () {
+		//			var newUrl = encodeURIComponent(url);
+		//			$.ajax({
+		//				url: 'Url.Action("MostrarPDF")',
+		//				type: 'POST',
+		//				data: { url: newUrl },
+		//				success: function (result) {
+		//					pdfViewer.empty(); // Vaciar contenido de pdf-viewer
+		//					pdfViewer.append(result);
+		//				},
+		//				error: function () {
+		//					pdfViewer.empty(); // Vaciar contenido de pdf-viewer
+		//					pdfViewer.html('Ha ocurrido un error al mostrar el archivo PDF.');
+		//				}
+		//			});
+		//		});
+		//	});
+		//});
+
+		$(document).ready(function () {
+
+			// Función para actualizar el contenedor del PDF con el archivo seleccionado
+			$('.viewButton').click(function () {
+				var pdfId = $(this).data('id');
+
+				var url = `@Url.Action("ObtenerPDFDesdeBD", "ArchivosPDF")/${pdfId}`;
+				fetch(url)
+					.then(response => response.blob())
+					.then(blob => {
+						var object = document.getElementById("pdf-viewer");
+						object.data = URL.createObjectURL(blob);
+					});
+			});
+
+			//// Función para actualizar el contenedor del PDF con el archivo seleccionado
+			//function updatePDF(base64String) {
+			//	// Convertir la cadena en base64 a un objeto Uint8Array
+			//	var binaryString = atob(base64String);
+			//	var len = binaryString.length;
+			//	var bytes = new Uint8Array(len);
+			//	for (var i = 0; i < len; i++) {
+			//		bytes[i] = binaryString.charCodeAt(i);
+			//	}
+
+			//	// Crear un objeto de tipo PDFJS
+			//	var loadingTask = pdfjsLib.getDocument({ data: bytes });
+
+			//	// Renderizar la primera página del PDF en el contenedor
+			//	loadingTask.promise.then(function (pdf) {
+			//		pdf.getPage(1).then(function (page) {
+			//			var scale = 1.5;
+			//			var viewport = page.getViewport({ scale: scale });
+
+			//			// Preparar el canvas para renderizar el PDF
+			//			var canvas = document.getElementById('pdf-viewer');
+			//			var context = canvas.getContext('2d');
+			//			canvas.height = viewport.height;
+			//			canvas.width = viewport.width;
+
+			//			// Renderizar el PDF en el canvas
+			//			var renderContext = {
+			//				canvasContext: context,
+			//				viewport: viewport
+			//			};
+			//			page.render(renderContext);
+			//		});
+			//	});
+			//}
+
+			// Agregar un controlador de eventos click al botón "Ver"
+			//$('.viewButton').click(function () {
+			//	// Obtener el ID del archivo PDF
+			//	var pdfId = $(this).data('id');
+
+			//	// Realizar una llamada AJAX para obtener la cadena en base64 del archivo PDF
+			//	$.get('ArchivosPDF/ObtenerBase64String/' + pdfId, function (base64String) {
+			//		// Utilizar la cadena en base64 para cargar el archivo PDF en pdf.js
+			//		console.log(base64String);
+			//		updatePDF(base64String);
+			//	});
+			//});
+		
+		
+		});
+
+	</script>
+
+	
+
+</body>
+
+<style>
+
+	footer {
+	display: none;
+	}
+</style>
+</html>
+

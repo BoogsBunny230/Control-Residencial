@@ -1,0 +1,48 @@
+﻿@model CtrlRes.Models.Privadas
+
+@{
+    ViewData["Title"] = "AGREGAR PRIVADA";
+}
+
+<br />
+<br />
+<h3 class="text-center"> Agregar una nueva privada</h3>
+
+<div class="row">
+    <div class="row px-5 mx-auto border col-10" style="position:center; width:1000px">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="IdPriv" style="font-size:21px">Identificador de privada</label>
+                <input asp-for="IdPriv" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="IdPriv" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Nombre" style="font-size:21px">Nombre de la privada</label>
+                <input asp-for="Nombre" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="MedLuz" style="font-size:21px">Identificador de medidor de luz</label>
+                <input asp-for="MedLuz" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="MedLuz" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Observaciones" style="font-size:21px">Observación respecto a la privada</label>
+                <input asp-for="Observaciones" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Observaciones" class="text-danger"></span>
+            </div>
+            &nbsp;
+            @*Volver*@
+            <div class="form-group row">
+                <div class="col-12">
+                    <partial name="_VistaCrearVolver" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

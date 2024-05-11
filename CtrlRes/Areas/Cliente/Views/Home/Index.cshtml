@@ -1,0 +1,562 @@
+﻿@using System.Text.Json
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+
+<!--<div id="chart" style="width: 1000px auto;height:400px;"></div> -->
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Gráfica de ingresos y egresos</h5>
+                    <!-- <p class="card-text">Este es un ejemplo de encabezado que cubre el mismo ancho de dos columnas en Bootstrap.</p> -->
+                    <div id="chart" style="width: auto;height:350px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Estado general de Pagos</h5>
+                            <!-- <p class="card-text">Este es un ejemplo de contenedor responsivo en Bootstrap</p> -->
+                            <div id="chart1" style="width: auto;height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" hidden>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Contenedor 2</h5>
+                            <!-- <p class="card-text">Este es un ejemplo de contenedor responsivo en Bootstrap</p> -->
+                            <div id="chart2" style="width: auto;height:360px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Contenedor 3</h5>
+                            <!-- <p class="card-text">Este es un ejemplo de contenedor responsivo en Bootstrap</p> -->
+                            <div id="chart3" style="width: auto;height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" hidden>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Contenedor 4</h5>
+                            <!-- <p class="card-text">Este es un ejemplo de contenedor responsivo en Bootstrap</p> -->
+                            <div id="chart4" style="width: 1000px auto;height:360px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" hidden>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Contenedor 5</h5>
+                            <!-- <p class="card-text">Este es un ejemplo de contenedor responsivo en Bootstrap</p>-->
+                            <div id="chart5" style="width: 1000px auto;height:360px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var myChart = echarts.init(document.getElementById('chart'));
+
+    var ingresosData = @Html.Raw(JsonSerializer.Serialize(ViewBag.IngresosData));
+    var minDate = '@ViewBag.MinDate';
+    var egresosData = @Html.Raw(JsonSerializer.Serialize(ViewBag.EgresosData));
+
+    var ingresosTotal = ingresosData.reduce(function (sum, item) {
+        return sum + item.Monto;
+    }, 0);
+
+    var formattedMinDate = echarts.format.formatTime('dd/MM/yyyy', minDate);
+
+    var egresosTotal = egresosData.reduce(function (sum, item) {
+        return sum + item.Monto;
+    }, 0);
+
+    var balance = ingresosTotal - egresosTotal;
+    balance = parseFloat(balance.toFixed(2));
+
+
+    var option = {
+        title: {
+            text: 'Total de ingresos desde: ' + formattedMinDate + ' - $' + ingresosTotal + ' MXN   |   Total de egresos: $' + egresosTotal + ' MXN   |   Balance: $' + balance + ' MXN',
+            left: 'center'
+        },
+        xAxis: {
+            type: 'time',
+            axisLabel: {
+                formatter: function (value) {
+                    return echarts.format.formatTime('dd/MM/yyyy hh:mm:ss', value);
+                }
+            }
+        },
+        yAxis: {
+            type: 'value'
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: function (params) {
+                var result = '';
+                for (var i in params) {
+                    var data = params[i].data;
+                    var date = echarts.format.formatTime('dd/MM/yyyy hh:mm:ss', data[0]);
+                    var value = data[1];
+                    if (params[i].seriesName == "Ingresos") {
+                        var referencia = data[2];
+                        var viviendaId = data[3];
+                        var concepto = data[4];
+                        result += date + '<br><b>Monto:</b> $' + value + ' MXN<br><b>Referencia:</b> ' + referencia + '<br><b>Vivienda ID:</b> ' + viviendaId + '<br><b>Concepto:</b> ' + concepto;
+                    } else if (params[i].seriesName == "Egresos") {
+                        var tipo = data[2];
+                        var privadaId = data[4];
+                        var concepto = data[3];
+                        result += date + '<br><b>Monto:</b> $' + value + ' MXN<br><b>Tipo:</b> ' + tipo + '<br><b>Privada ID:</b> ' + privadaId + '<br><b>Concepto:</b> ' + concepto;
+                    }
+                }
+                return result;
+            }
+        },
+        series: [{
+            data: ingresosData.map(function (item) {
+                return [item.Fecha, item.Monto, item.Referencia, item.ViviendaId, item.Concepto];
+            }),
+            type: 'line',
+            name: 'Ingresos'
+        }, {
+            data: egresosData.map(function (item) {
+                return [item.Fecha, item.Monto, item.Tipo, item.Concepto, item.PrivadaId];
+            }),
+            type: 'line',
+            name: 'Egresos',
+            itemStyle: {
+                color: '#ff0000'
+            }
+        }]
+    };
+
+
+    //var data = @@Html.Raw(JsonSerializer.Serialize(ViewBag.Data));
+
+    //var total = data.reduce(function (sum, item) {
+    //    return sum + item.Monto;
+    //}, 0);
+
+    //var minDate = data.reduce(function (min, item) {
+    //    return item.Fecha < min ? item.Fecha : min;
+    //}, data[0].Fecha);
+
+    //var formattedMinDate = echarts.format.formatTime('dd/MM/yyyy', minDate);
+
+
+    //var option = {
+    //    title: {
+    //        text: 'Total de ingresos desde: ' + formattedMinDate + ' - $' + total + ' MXN',
+    //        left: 'center'
+    //    },
+    //    xAxis: {
+    //        type: 'time',
+    //        axisLabel: {
+    //            formatter: function (value) {
+    //                return echarts.format.formatTime('dd/MM/yyyy hh:mm:ss', value);
+    //            }
+    //        }
+    //    },
+    //    yAxis: {
+    //        type: 'value'
+    //    },
+    //    tooltip: {
+    //        trigger: 'axis',
+    //        formatter: function (params) {
+    //            var data = params[0].data;
+    //            var date = echarts.format.formatTime('dd/MM/yyyy hh:mm:ss', data[0]);
+    //            var value = data[1];
+    //            var referencia = data[2];
+    //            var viviendaId = data[3];
+    //            var concepto = data[4];
+    //            return date + '<br><b>Monto:</b> $' + value + ' MXN<br><b>Referencia:</b> ' + referencia + '<br><b>Vivienda ID:</b> ' + viviendaId + '<br><b>Concepto:</b> ' + concepto;
+    //        }
+    //    },
+    //    series: [{
+    //        data: data.map(function (item) {
+    //            return [item.Fecha, item.Monto, item.Referencia, item.ViviendaId, item.Concepto];
+    //        }),
+    //        type: 'line'
+    //    }]
+    //};
+
+    myChart.setOption(option);
+
+    window.addEventListener('resize', myChart.resize);
+
+    //--------------------------------------------------------------
+
+    var myChart = echarts.init(document.getElementById('chart1'));
+
+    var option = {
+        title: {
+            text: 'Pagos',
+            subtext: 'Estado de los pagos',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+        },
+        series: [
+            {
+                name: 'Pagos',
+                type: 'pie',
+                radius: '70%',
+                data: [
+                    { value: @ViewBag.SinPagar, name: 'Sin Pagar', itemStyle: { color: 'gray' } },
+                    { value: @ViewBag.Aprobado, name: 'Aprobado', itemStyle: { color: 'green' } },
+                    { value: @ViewBag.Rechazado, name: 'Rechazado', itemStyle: { color: 'red' } }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    window.addEventListener('resize', myChart.resize);
+
+    //--------------------------------------------------------------
+
+    var myChart = echarts.init(document.getElementById('chart2'));
+
+    var option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            // prettier-ignore
+            data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} °C'
+            },
+            axisPointer: {
+                snap: true
+            }
+        },
+        visualMap: {
+            show: false,
+            dimension: 0,
+            pieces: [
+                {
+                    lte: 6,
+                    color: 'green'
+                },
+                {
+                    gt: 6,
+                    lte: 8,
+                    color: 'red'
+                },
+                {
+                    gt: 8,
+                    lte: 14,
+                    color: 'green'
+                },
+                {
+                    gt: 14,
+                    lte: 17,
+                    color: 'red'
+                },
+                {
+                    gt: 17,
+                    color: 'green'
+                }
+            ]
+        },
+        dataZoom: [
+            {
+                type: 'inside',
+                start: 100,
+                end: 0
+            },
+            {
+                start: 100,
+                end: 0
+            }
+        ],
+        series: [
+            {
+                name: 'Electricity',
+                type: 'line',
+                smooth: true,
+                // prettier-ignore
+                data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
+                markArea: {
+                    itemStyle: {
+                        color: 'rgba(255, 173, 177, 0.4)'
+                    },
+                    data: [
+                        [
+                            {
+                                name: 'Desconectado',
+                                xAxis: '07:30'
+                            },
+                            {
+                                xAxis: '10:00'
+                            }
+                        ],
+                        [
+                            {
+                                name: 'Desconectado',
+                                xAxis: '17:30'
+                            },
+                            {
+                                xAxis: '21:15'
+                            }
+                        ]
+                    ]
+                }
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    window.addEventListener('resize', myChart.resize);
+
+    //--------------------------------------------------------------
+
+    var myChart = echarts.init(document.getElementById('chart3'));
+
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                // Use axis to trigger tooltip
+                type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+            }
+        },
+        legend: {},
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value'
+        },
+        yAxis: {
+            type: 'category',
+            data: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom']
+        },
+        series: [
+            {
+                name: 'Direct',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [320, 302, 301, 334, 390, 330, 320]
+            },
+            {
+                name: 'Mail Ad',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name: 'Affiliate Ad',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name: 'Video Ad',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [150, 212, 201, 154, 190, 330, 410]
+            },
+            {
+                name: 'Search Engine',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [820, 832, 901, 934, 1290, 1330, 1320]
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    window.addEventListener('resize', myChart.resize);
+
+    //--------------------------------------------------------------
+
+    var myChart = echarts.init(document.getElementById('chart4'));
+
+    option = {
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            left: 'center'
+        },
+        series: [
+            {
+                name: 'Access From',
+                type: 'pie',
+                radius: '60%',
+                data: [
+                    { value: 1048, name: 'Search Engine' },
+                    { value: 735, name: 'Direct' },
+                    { value: 580, name: 'Email' },
+                    { value: 484, name: 'Union Ads' },
+                    { value: 300, name: 'Video Ads' }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    window.addEventListener('resize', myChart.resize);
+
+    //--------------------------------------------------------------
+
+    var myChart = echarts.init(document.getElementById('chart5'));
+
+    option = {
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            left: 'center',
+            // doesn't perfectly work with our tricks, disable it
+            selectedMode: false
+
+        },
+        series: [
+            {
+                name: 'Access From',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['50%', '70%'],
+                // adjust the start angle
+                startAngle: 180,
+                label: {
+                    show: true,
+                    formatter(param) {
+                        // correct the percentage
+                        return param.name + ' (' + param.percent * 2 + '%)';
+                    }
+                },
+                data: [
+                    { value: 1048, name: 'Search Engine' },
+                    { value: 735, name: 'Direct' },
+                    { value: 580, name: 'Email' },
+                    { value: 484, name: 'Union Ads' },
+                    { value: 300, name: 'Video Ads' },
+                    {
+                        // make an record to fill the bottom 50%
+                        value: 1048 + 735 + 580 + 484 + 300,
+                        itemStyle: {
+                            // stop the chart from rendering this piece
+                            color: 'none',
+                            decal: {
+                                symbol: 'none'
+                            }
+                        },
+                        label: {
+                            show: false
+                        }
+                    }
+                ]
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+
+<style>
+
+    footer {
+        display: none;
+    }
+</style>

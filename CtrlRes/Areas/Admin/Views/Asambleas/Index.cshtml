@@ -1,0 +1,544 @@
+﻿@model CtrlRes.Models.Asambleas
+
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+
+<style>
+
+    input[readonly], select[readonly] {
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
+        color: #888;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .contenedorOverFlow {
+        height: 26vh;
+        overflow-y: auto;
+        border: 5px solid #333;
+        border-radius: 6px;
+        background-color: #37322f;
+    }
+
+</style>
+
+
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header text-center fw-bold" style="background-color: #37322fe3; color: white">PLANEACIÓN DE ASAMBLEA</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 border-end border-3">
+                            <!-- Left column content -->
+
+                            <label for="tipo">Seleccione una privada:</label>
+                            <select class="form-select mb-3" id="privada_select" required data-error="Debe seleccionar una privada">
+                                <option value="">Seleccione una opción</option>
+                                @foreach (var privada in ViewBag.Privadas)
+                                {
+                                    <option value="@privada.IdPriv">@privada.Nombre</option>
+                                }
+                            </select>
+
+                            <label>Seleccione las viviendas contempladas:</label>
+                            <div class="card">
+                                <div class="card-body scrollable-container contenedorOverFlow">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-6 border-start border-3" id="form-container">
+                            <!-- Right column content -->
+                            <form method="post" asp-action="Index" enctype="multipart/form-data">
+
+
+                                <label asp-for="Nombre">Nombre de la asamblea:</label>
+                                <input asp-for="Nombre" type="text" id="asamblea-nombre" class="form-control mb-3" required disabled>
+
+                                <label asp-for="Descripcion">Descripción (temas a tratar):</label>
+                                <textarea asp-for="Descripcion" id="mensaje" class="form-control mb-3" rows="5" required disabled></textarea>
+
+                                <div class="form-group">
+                                    <label asp-for="FechaProgramada">Fecha programada:</label>
+                                    <input asp-for="FechaProgramada" type="datetime-local" id="FechaLimite" class="form-control mb-3" required />
+                                </div>
+
+                                <input type="hidden" asp-for="Notificacion" id="Notificacion" />
+                                <input type="hidden" asp-for="Privada_Id" id="Privada_Id" />
+
+
+                                <div clas="col-md-1" style="text-align: right;">
+                                    <button type="submit" class="btn btn-outline-success">Aceptar</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div class="row" id="bottom-container">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header text-center fw-bold" style="background-color: #37322fe3; color: white">HISTORIAL DE ASAMBLEAS</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 border-end border-3">
+                            <!-- Left column content -->
+
+                            <label for="tipo">Seleccione una privada:</label>
+                            <select class="form-select mb-3" id="privada_select2" required data-error="Debe seleccionar una privada">
+                                <option value="">Seleccione una opción</option>
+                                @foreach (var privada in ViewBag.Privadas)
+                                {
+                                    <option value="@privada.IdPriv">@privada.Nombre</option>
+                                }
+                            </select>
+
+                            <label>Historial:</label>
+                            <div class="card">
+                                <div class="card-body scrollable-container2 contenedorOverFlow">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-3 border-start border-end border-3">
+                            <!-- Right column content -->
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="numviv">Usuarios notificados:</label>
+                                    <input type="text" id="usuarios-notificados" class="form-control " disabled>
+                                    &nbsp;
+                                </div>
+                                <div class="col">
+                                    <label for="numviv">Usuarios confirmados:</label>
+                                    <input type="text" id="usuarios-confirmados" class="form-control " disabled>
+                                </div>
+                            </div>
+                            <label for="mensaje">Descripción (temas tratados):</label>
+                            <textarea id="asamblea-descripcion" class="form-control mb-3" rows="5" required disabled></textarea>
+
+
+
+
+                        </div>
+                        <!----------------------------------------------------------------------------------------------------------------->
+
+                        <div class="col-md-5 border-start border-3">
+                            <!-- Right column content -->
+                            <div id="chart4" style="width: 1000px auto;height:360px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $("#form-container :input").prop('disabled', true);
+
+        $('#privada_select').change(function () {
+
+            var elementId = $("#privada_select").val();
+            document.querySelector('#Privada_Id').value = elementId;
+
+            if (elementId !== "") {
+                $.ajax({
+                    url: '@Url.Action("GetViviendas")?selectedValue=' + elementId,
+                    type: 'GET',
+                    success: function (result) {
+
+                        $("#form-container :input").prop('disabled', false);
+                        $("#boton").prop('disabled', true);
+
+                        var scrollableContainer = $('.scrollable-container');
+                        scrollableContainer.empty();
+
+                        // Add "select all" checkbox
+                        var selectAllCheckbox = $('<input>').addClass('form-check-input me-2');
+                        selectAllCheckbox.attr({
+                            type: 'checkbox',
+                            id: 'select-all-checkbox'
+                        });
+                        var selectAllLabel = $('<label>').addClass('form-check-label');
+                        selectAllLabel.attr('style', 'color: white;');
+                        selectAllLabel.attr({
+                            for: 'select-all-checkbox'
+                        });
+                        selectAllLabel.text('Seleccionar todos');
+                        var selectAllContainer = $('<div>').addClass('form-check mb-3');
+                        selectAllContainer.append(selectAllCheckbox);
+                        selectAllContainer.append(selectAllLabel);
+                        scrollableContainer.append(selectAllContainer);
+
+                        // Add data rows with checkboxes
+                        $.each(result, function (index, data) {
+                            var cardColumn = $('<div>').addClass('col');
+                            var cardContent = $('<div>').addClass('card mb-3 mx-2');
+                            var cardBody = $('<div>').addClass('card-body');
+                            var checkbox = $('<input>').addClass('form-check-input me-2');
+                            checkbox.attr({
+                                type: 'checkbox',
+                                value: data.value
+                            });
+                            var label = $('<label>').addClass('form-check-label');
+                            label.text(data.name);
+                            cardBody.append(checkbox);
+                            cardBody.append(label);
+                            cardContent.append(cardBody);
+                            cardColumn.append(cardContent);
+                            scrollableContainer.append(cardColumn);
+                        });
+
+                        // Bind click event to "select all" checkbox
+                        $('#select-all-checkbox').click(function () {
+                            $('.scrollable-container input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+                        });
+
+                        //*************************************************************************
+
+                        // Variable para almacenar los valores seleccionados
+                        var valoresSeleccionados = '';
+
+                        // Agregar manejador de eventos solo a los input dentro del contenedor scrollable-container
+                        $('.scrollable-container input[type=checkbox]').on('change', function () {
+                            // Obtener el valor del checkbox
+                            var valorCheckbox = $(this).val();
+
+                            // Verificar si el checkbox está marcado o desmarcado
+                            if ($(this).is(':checked')) {
+                                // Agregar el valor del checkbox a la cadena
+                                if (valorCheckbox == 'on') {
+                                    // Reiniciar la variable y concatenar los valores de todos los checkbox dentro del contenedor
+                                    valoresSeleccionados = '';
+                                    $('.scrollable-container input[type=checkbox]').each(function () {
+                                        if ($(this).is(':checked') && $(this).val() != 'on') {
+                                            if (valoresSeleccionados.length > 0) {
+                                                valoresSeleccionados += ',';
+                                            }
+                                            valoresSeleccionados += $(this).val();
+                                        }
+                                    });
+                                } else {
+                                    // Agregar el valor del checkbox a la cadena
+                                    if (valoresSeleccionados.length > 0) {
+                                        valoresSeleccionados += ',';
+                                    }
+                                    valoresSeleccionados += valorCheckbox;
+                                }
+                            } else {
+                                // Eliminar el valor del checkbox de la cadena
+                                if (valoresSeleccionados.indexOf(',' + valorCheckbox) >= 0) {
+                                    valoresSeleccionados = valoresSeleccionados.replace(',' + valorCheckbox, '');
+                                } else if (valoresSeleccionados.indexOf(valorCheckbox + ',') >= 0) {
+                                    valoresSeleccionados = valoresSeleccionados.replace(valorCheckbox + ',', '');
+                                } else if (valoresSeleccionados.indexOf(valorCheckbox) >= 0) {
+                                    valoresSeleccionados = valoresSeleccionados.replace(valorCheckbox, '');
+                                } else if (valoresSeleccionados.indexOf(valorCheckbox) < 0) {
+                                    valoresSeleccionados = '';
+                                }
+                            }
+
+                            // Mostrar la cadena resultante en la consola (solo para fines de demostración)
+                            console.log(valoresSeleccionados);
+                            $("#Notificacion").val(valoresSeleccionados);
+
+                        });
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                        $("#form-container :input").prop('disabled', true);
+                    }
+                });
+            } else {
+
+                var scrollableContainer = $('.scrollable-container');
+                scrollableContainer.empty();
+                $("#form-container :input").prop('disabled', true);
+
+            }
+        });
+
+        //----------------------------HISTORIAL----------------------------------
+
+        $('#privada_select2').change(function () {
+
+            var elementId = $("#privada_select2").val();
+
+            if (elementId !== "") {
+                $.ajax({
+                    url: '@Url.Action("GetHistorial")?selectedValue=' + elementId,
+                    type: 'GET',
+                    success: function (result) {
+
+                        var scrollableContainer = $('.scrollable-container2');
+                        scrollableContainer.empty();
+
+                        var table = $('<table>').addClass('table table-hover table-striped');
+                        table.append($('<thead>').append(
+                            $('<tr>').addClass('text-white').append(
+                                $('<th>').text('Nombre'),
+                                $('<th>').text('Fecha'),
+                                $('<th>').text('Acción')
+                            )
+                        )
+                        );
+
+                        var tbody = $('<tbody>');
+                        $.each(result, function (i, item) {
+                            var tr = $('<tr>').attr('data-value', item.value).click(function () {
+                                // Call an action with the value attribute
+                                var value = $(this).data('value');
+                                yourActionFunction(value);
+                            }).addClass('bg-light');
+                            tr.append($('<td>').text(item.name));
+
+                            // Formatear la fecha
+                            var fecha = new Date(item.fecha);
+                            var opciones = {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            };
+                            var fechaFormateada = fecha.toLocaleDateString("es-MX", opciones);
+                            fechaFormateada += " horas";
+
+                            tr.append($('<td>').text(fechaFormateada));
+                            tr.append($('<td>').append(
+                                $('<button>').addClass('btn btn-info').html('<i class="fas fa-edit"></i>').click(function () {
+                                    var value = $(this).closest('tr').data('value');
+                                    action1Function(value);
+                                }),
+                                $('<button>').addClass('btn btn-danger').html('<i class="fas fa-trash-alt"></i>').click(function () {
+                                    var value = $(this).closest('tr').data('value');
+                                    action2Function(value);
+                                })
+                            ));
+                            tbody.append(tr);
+                        });
+                        table.append(tbody);
+                        scrollableContainer.append(table);
+
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                        $("#form-container :input").prop('disabled', true);
+                    }
+                });
+
+                function yourActionFunction(value) {
+                    // Do something with the value
+                    console.log(value);
+
+                    $.ajax({
+                        url: '@Url.Action("GetStatistics")?id=' + value,
+                        type: 'GET',
+                        success: function (result) {
+
+                            console.log(result.totalNotificados);
+
+                            $("#usuarios-notificados").val(result.totalNotificados);
+
+                            console.log(result.confirmados);
+
+                            $("#usuarios-confirmados").val(result.confirmados);
+
+                            console.log(result.descripcionAsamblea);
+
+                            $("#asamblea-descripcion").val(result.descripcionAsamblea);
+
+                            //---------------GRÁFICA-------------------
+
+                            var option = {
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: '{a} <br/>{b}: {c} ({d}%)'
+                                },
+                                legend: {
+                                    left: 'center'
+                                },
+                                series: [
+                                    {
+                                        name: 'Asamblea',
+                                        type: 'pie',
+                                        radius: '60%',
+                                        data: [
+                                            { value: (+result.confirmados), name: 'Confirmados' },
+                                            { value: (+result.sinconfirmar), name: 'Sin confirmar' },
+                                            { value: (+result.denegados), name: 'Denegados' },
+                                        ],
+                                        color: ['#00b04f', '#ffbf00', '#ff0000'],
+                                        label: {
+                                            formatter: '{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                                            backgroundColor: '#F6F8FC',
+                                            borderColor: '#8C8D8E',
+                                            borderWidth: 1,
+                                            borderRadius: 4,
+                                            rich: {
+                                                a: {
+                                                    color: '#6E7079',
+                                                    lineHeight: 22,
+                                                    align: 'center'
+                                                },
+                                                hr: {
+                                                    borderColor: '#8C8D8E',
+                                                    width: '100%',
+                                                    borderWidth: 1,
+                                                    height: 0
+                                                },
+                                                b: {
+                                                    color: '#4C5058',
+                                                    fontSize: 14,
+                                                    fontWeight: 'bold',
+                                                    lineHeight: 33
+                                                },
+                                                per: {
+                                                    color: '#fff',
+                                                    backgroundColor: '#4C5058',
+                                                    padding: [3, 4],
+                                                    borderRadius: 4
+                                                }
+                                            }
+                                        },
+                                        emphasis: {
+                                            itemStyle: {
+                                                shadowBlur: 10,
+                                                shadowOffsetX: 0,
+                                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                            }
+                                        }
+                                    }
+                                ]
+                            };
+
+                            myChart.setOption(option);
+
+                            //--------------------------------------------------------------
+
+                        },
+                        error: function () {
+                            alert("Error al cargar los datos.");
+                            $("#form-container :input").prop('disabled', true);
+                        }
+                    });
+                }
+
+                function action1Function(value) {
+                    // Do something with the value for action 1
+                    console.log("Action 1: " + value);
+                }
+
+                function action2Function(value) {
+                    // Do something with the value for action 1
+                    console.log("Action 2: " + value);
+                }
+
+            } else {
+
+                var scrollableContainer = $('.scrollable-container');
+                scrollableContainer.empty();
+                $("#form-container :input").prop('disabled', true);
+
+            }
+
+        });
+
+        //---------------GRÁFICA-------------------
+
+        var myChart = echarts.init(document.getElementById('chart4'));
+
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                left: 'center'
+            },
+            series: [   
+                {
+                    name: 'Asamblea',
+                    type: 'pie',
+                    radius: '60%',
+                    data: [
+                        { value: 0, name: 'Confirmados' },
+                        { value: 0, name: 'Sin confirmar' },
+                        { value: 0, name: 'Denegados' },
+                    ],
+                    color: ['#00b04f', '#ffbf00', '#ff0000'],
+                    label: {
+                        formatter: '{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                        backgroundColor: '#F6F8FC',
+                        borderColor: '#8C8D8E',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        rich: {
+                            a: {
+                                color: '#6E7079',
+                                lineHeight: 22,
+                                align: 'center'
+                            },
+                            hr: {
+                                borderColor: '#8C8D8E',
+                                width: '100%',
+                                borderWidth: 1,
+                                height: 0
+                            },
+                            b: {
+                                color: '#4C5058',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                lineHeight: 33
+                            },
+                            per: {
+                                color: '#fff',
+                                backgroundColor: '#4C5058',
+                                padding: [3, 4],
+                                borderRadius: 4
+                            }
+                        }
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+
+        window.addEventListener('resize', myChart.resize);
+
+        //--------------------------------------------------------------
+
+    });
+
+</script>
+
+<style>
+
+    footer {
+        display: none;
+    }
+</style>

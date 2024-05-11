@@ -1,0 +1,370 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes\\CtrlRes.csproj": {}
+  },
+  "projects": {
+    "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.AccesoDatos\\CtrlRes.AccesoDatos.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.AccesoDatos\\CtrlRes.AccesoDatos.csproj",
+        "projectName": "CtrlRes.AccesoDatos",
+        "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.AccesoDatos\\CtrlRes.AccesoDatos.csproj",
+        "packagesPath": "C:\\Users\\Héctor Guzmán\\.nuget\\packages\\",
+        "outputPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.AccesoDatos\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Héctor Guzmán\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Models\\CtrlRes.Models.csproj": {
+                "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Models\\CtrlRes.Models.csproj"
+              },
+              "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Utilidades\\CtrlRes.Utilidades.csproj": {
+                "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Utilidades\\CtrlRes.Utilidades.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Models\\CtrlRes.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Models\\CtrlRes.Models.csproj",
+        "projectName": "CtrlRes.Models",
+        "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Models\\CtrlRes.Models.csproj",
+        "packagesPath": "C:\\Users\\Héctor Guzmán\\.nuget\\packages\\",
+        "outputPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Héctor Guzmán\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Utilidades\\CtrlRes.Utilidades.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Utilidades\\CtrlRes.Utilidades.csproj",
+        "projectName": "CtrlRes.Utilidades",
+        "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Utilidades\\CtrlRes.Utilidades.csproj",
+        "packagesPath": "C:\\Users\\Héctor Guzmán\\.nuget\\packages\\",
+        "outputPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.Utilidades\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Héctor Guzmán\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes\\CtrlRes.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes\\CtrlRes.csproj",
+        "projectName": "CtrlRes",
+        "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes\\CtrlRes.csproj",
+        "packagesPath": "C:\\Users\\Héctor Guzmán\\.nuget\\packages\\",
+        "outputPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes\\obj\\publish\\win-x86\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Héctor Guzmán\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.AccesoDatos\\CtrlRes.AccesoDatos.csproj": {
+                "projectPath": "E:\\PROGRAMACION\\.NET\\ASP.NET\\Aplicación web de ASP.NET Core MVC\\CtrlRes\\CtrlRes.AccesoDatos\\CtrlRes.AccesoDatos.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+              "version": "[7.0.4, 7.0.4]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x86",
+              "version": "[7.0.4, 7.0.4]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
+              "version": "[7.0.4, 7.0.4]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

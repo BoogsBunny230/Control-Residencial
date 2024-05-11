@@ -1,0 +1,274 @@
+﻿@model CtrlRes.Models.Viviendas
+
+@{
+    ViewData["Title"] = "Catálogo de Viviendas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+
+@section styles {
+    <!--Bootstrap 5 & Datatables CSS-->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/TablaCatalogo.css" />
+
+}
+
+@section scriptsup {
+
+    <!--Bootstrap 5 & Datatables JS-->
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+}
+
+
+<div class="container-fluid mt-5">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 border-end border-3">
+                            <!-- Top Content -->
+
+                            <div id="vista-tabla1">
+
+                                <table id="Tabla" class="table display cell-border table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr class="table-custom"><th colspan="5" style="text-align:center"><h3 class="text-center">CATÁLOGO DE VIVIENDAS</h3></th></tr>
+                                        <tr class="table-secondary">
+                                            <th>Id</th>
+                                            <th>Número o Identificador</th>
+                                            <th>MedidorAgua</th>
+                                            <th>Identificador de Privada</th>
+                                            <th class="not-export-col" style="text-align:center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        @foreach (var viviendas in ViewBag.Viviendas)
+                                        {
+                                            <tr>
+                                                <td>@viviendas.Id</td>
+                                                <td>@viviendas.Numero</td>
+                                                <td>@viviendas.MedidorAgua</td>
+                                                <td>@viviendas.Privada_Id</td>
+                                                <td class="text-center">
+                                                    <a href='/Admin/Propietarios/Edit/@viviendas.Id' class='btn btn-success text-white' style='cursor:pointer; '>
+                                                        <i class='fas fa-edit'></i> Editar
+                                                    </a>
+                                                    <button type="button" class="borrar btn btn-danger text-white" style='cursor:pointer; ' data-id="@viviendas.Id" data-url="/Admin/Viviendas/Delete/">
+                                                        <i class='fas fa-trash-alt'></i> Borrar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 border-end border-3">
+                            <!-- Top Content -->
+
+                            <div id="vista-tabla2">
+
+                                <table id="Tabla2" class="table display cell-border table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr class="table-custom"><th colspan="6" style="text-align:center"><h3 class="text-center">CATÁLOGO DE PROPIETARIOS</h3></th></tr>
+                                        <tr class="table-secondary">
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Celular</th>
+                                            <th>Vehículo</th>
+                                            <th>Vivienda_Id</th>
+                                            <th class="not-export-col" style="text-align:center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        @foreach (var propietarios in ViewBag.Propietarios)
+                                        {
+                                            <tr>
+                                                <td>@propietarios.Id</td>
+                                                <td>@propietarios.Nombre</td>
+                                                <td>@propietarios.Celular</td>
+                                                <td>@propietarios.Vehiculo</td>
+                                                <td>@propietarios.Vivienda_Id</td>
+                                                <td class="text-center">
+                                                    <a href='/Admin/Propietarios/Edit/@propietarios.Id' class='btn btn-success text-white' style='cursor:pointer; '>
+                                                        <i class='fas fa-edit'></i> Editar
+                                                    </a>
+                                                    @*                                            <button type="button" class="borrar btn btn-danger text-white" style='cursor:pointer; ' data-id="@propietarios.Id" data-url="/Admin/Propietarios/Delete/">
+                                                <i class='fas fa-trash-alt'></i> Borrar
+                                                </button>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!----------------------------------------------------------------------------------------------------------------->
+
+    <div class="row mt-5 mb-5">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <!-- Bottom Content  -->
+
+
+
+
+                            <div id="vista-tabla3">
+
+                                <table id="Tabla3" class="table display cell-border table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr class="table-custom"><th colspan="6" style="text-align:center"><h3 class="text-center">CATÁLOGO DE ARRENDATARIOS</h3></th></tr>
+                                        <tr class="table-secondary">
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Celular</th>
+                                            <th>Vehiculo</th>
+                                            <th>Vivienda</th>
+                                            <th class="not-export-col" style="text-align:center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                            <th>Filter..</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        @foreach (var arrendatarios in ViewBag.Arrendatarios)
+                                        {
+                                            <tr>
+                                                <td>@arrendatarios.Id</td>
+                                                <td>@arrendatarios.Nombre</td>
+                                                <td>@arrendatarios.Celular</td>
+                                                <td>@arrendatarios.Vehiculo</td>
+                                                <td>@arrendatarios.Vivienda_Id</td>
+                                                <td class="text-center">
+                                                    <a href='/Admin/Arrendatarios/Edit/@arrendatarios.Id' class='btn btn-success text-white' style='cursor:pointer; '>
+                                                        <i class='fas fa-edit'></i> Editar
+                                                    </a>
+                                                    @*                                                    <button type="button" class="borrar btn btn-danger text-white" style='cursor:pointer; ' data-id="@arrendatarios.Id" data-url="/Admin/Arrendatarios/Delete/">
+                                                <i class='fas fa-trash-alt'></i> Borrar
+                                                </button>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scriptsdown {
+
+    <script src="~/js/TablaCatalogos_Viviendas.js"></script>
+}
+
+<style>
+
+    footer {
+        display: none;
+    }
+
+    @@media screen and (max-width: 767px) {
+
+        div.dataTables_wrapper {
+            position: unset;
+        }
+    }
+</style>

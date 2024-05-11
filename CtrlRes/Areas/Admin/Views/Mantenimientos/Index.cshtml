@@ -1,0 +1,360 @@
+﻿@model CtrlRes.Models.ViewModels.MantenimientosViewModel
+
+<style>
+
+    input[readonly], select[readonly] {
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
+        color: #888;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .contenedorOverFlow {
+        height: 41vh;
+        overflow-y: auto;
+        border: 5px solid #333;
+        border-radius: 6px;
+        background-color: #37322f;
+    }
+
+</style>
+
+<div class="container-fluid mt-2">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-center fw-bold" style="background-color: #37322fe3; color: white">PLANEACIÓN DE MANTENIMIENTO</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 border-end border-3">
+                            <!-- Left column content -->
+                            <div class="form-check form-switch d-flex justify-content-end">
+                                <label class="form-check-label"></label>
+                            </div>
+                            <label >Seleccione una privada:</label>
+                            <select class="form-select mb-3" id="privada_select" name="selectorpriv" required data-error="Debe seleccionar una privada">
+                                <option value="">Seleccione una opción</option>
+                                @foreach (var privada in ViewBag.Privadas)
+                                {
+                                    <option value="@privada.IdPriv">@privada.Nombre</option>
+                                }
+                            </select>
+
+                            <label>Seleccione las viviendas afectadas:</label>
+                            <div class="card">
+                                <div class="card-body scrollable-container contenedorOverFlow">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-6 border-start border-3" id="form-container">
+                            <!-- Right column content -->
+                            <form method="post" asp-action="Index" enctype="multipart/form-data">
+
+                                <div class="form-check form-switch d-flex justify-content-end">
+                                    <input class="form-check-input text-end" type="checkbox" id="mySwitch">
+                                    <label class="form-check-label text-start" for="mySwitch"> &nbsp;Nuevo concepto</label>
+                                </div>
+                                <label asp-for="Mantenimientos.Folio">Folio:</label>
+                                <input asp-for="Mantenimientos.Folio"  type="text" id="mantenimiento-folio" class="form-control mb-3" required disabled>
+                                
+                                <label asp-for="Mantenimientos.Concepto">Concepto de mantenimiento:</label>
+                                <input asp-for="Mantenimientos.Concepto" type="text" id="mantenimiento-concepto" class="form-control mb-3" required disabled>
+                                <input type="hidden" asp-for="MantenimientosConceptos.Concepto" id="hiddenInputConcepto" />
+
+
+                                <label asp-for="Mantenimientos.Descripcion">Descripción:</label>
+                                <input asp-for="Mantenimientos.Descripcion" type="text" id="mantenimiento-descripcion" class="form-control mb-3" required disabled>
+                                <input type="hidden" asp-for="MantenimientosConceptos.Descripcion" id="hiddenInputDescripcion" />
+
+
+                                <label asp-for="Mantenimientos.Mensaje">Mensaje:</label>
+                                <textarea asp-for="Mantenimientos.Mensaje" id="mensaje" class="form-control mb-3" rows="5" required disabled></textarea>
+                                <div class="form-group">
+                                    <label asp-for="Mantenimientos.FechaProgramada">Fecha programada:</label>
+                                    <input asp-for="Mantenimientos.FechaProgramada" type="datetime-local" id="FechaLimite" class="form-control mb-3" required />
+                                </div>
+
+                                <input type="hidden" asp-for="Mantenimientos.Notificacion" id="Notificacion" />
+                                <input type="hidden" asp-for="Mantenimientos.Privada_Id" id="Privada_Id" />
+
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-check-input" type="checkbox" id="conceptoCheckbox">
+                                        <label class="form-check-label" for="conceptoCheckbox">
+                                            Guardar concepto
+                                        </label>
+                                        &nbsp;
+                                        <input type="hidden" asp-for="GuardarConcepto" id="Guardar" value="No" />
+                                    </div>
+                                    <div class="col">
+                                        <div clas="col-md-1" style="text-align: right;">
+                                            <button type="submit" id="boton" class="btn btn-outline-success">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" id="concepto-container">
+            <div class="card">
+                <div class="card-header text-center fw-bold" style="background-color: #37322fe3; color: white">CONCEPTOS DE MANTENIMIENTO DEFINIDOS</div>
+                <div class="card-body">
+                    <!-- Put your content here -->
+                    <label for="tipo">Concepto de mantenimiento:</label>
+                    <select class="form-select mb-3" id="mantenimientosConceptos_select">
+                        <option value="">Seleccione una opción</option>
+                        @foreach (var mantenimientosConceptos in ViewBag.MantenimientosConceptos)
+                        {
+                            <option value="@mantenimientosConceptos.Id">@mantenimientosConceptos.Concepto</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        //
+
+        document.querySelector('#mantenimiento-concepto').addEventListener('input', function () {
+            document.querySelector('#hiddenInputConcepto').value = this.value;
+        });
+
+        document.querySelector('#mantenimiento-descripcion').addEventListener('input', function () {
+            document.querySelector('#hiddenInputDescripcion').value = this.value;
+        });
+
+        //
+
+
+        $("#form-container :input").prop('disabled', true);
+        $("#concepto-container :input").prop('disabled', true);
+
+        $('#privada_select').change(function () {
+
+            var elementId = $("#privada_select").val();
+            document.querySelector('#Privada_Id').value = elementId;
+
+            if (elementId !== "") {
+                $.ajax({
+                    url: '@Url.Action("GetViviendas")?selectedValue=' + elementId,
+                    type: 'GET',
+                    success: function (result) {
+
+                        $("#form-container :input").prop('disabled', false);
+                        $("#concepto-container :input").prop('disabled', false);
+                        $("#mantenimiento-concepto").prop('readonly', true);
+                        $("#mantenimiento-descripcion").prop('readonly', true);
+                        $("#conceptoCheckbox").prop('readonly', true);
+                        //$("#boton").prop('disabled', true);
+
+                        var scrollableContainer = $('.scrollable-container');
+                        scrollableContainer.empty();
+
+                        // Add "select all" checkbox
+                        var selectAllCheckbox = $('<input>').addClass('form-check-input me-2');
+                        selectAllCheckbox.attr({
+                            type: 'checkbox',
+                            id: 'select-all-checkbox'
+                        });
+                        var selectAllLabel = $('<label>').addClass('form-check-label');
+                        selectAllLabel.attr('style', 'color: white;');
+                        selectAllLabel.attr({
+                            for: 'select-all-checkbox'
+                        });
+                        selectAllLabel.text('Seleccionar todos');
+                        var selectAllContainer = $('<div>').addClass('form-check mb-3');
+                        selectAllContainer.append(selectAllCheckbox);
+                        selectAllContainer.append(selectAllLabel);
+                        scrollableContainer.append(selectAllContainer);
+
+                        // Add data rows with checkboxes
+                        $.each(result, function (index, data) {
+                            var cardColumn = $('<div>').addClass('col');
+                            var cardContent = $('<div>').addClass('card mb-3 mx-2');
+                            var cardBody = $('<div>').addClass('card-body');
+                            var checkbox = $('<input>').addClass('form-check-input me-2');
+                            checkbox.attr({
+                                type: 'checkbox',
+                                value: data.value
+                            });
+                            var label = $('<label>').addClass('form-check-label');
+                            label.text(data.name);
+                            cardBody.append(checkbox);
+                            cardBody.append(label);
+                            cardContent.append(cardBody);
+                            cardColumn.append(cardContent);
+                            scrollableContainer.append(cardColumn);
+                        });
+
+                        // Bind click event to "select all" checkbox
+                        $('#select-all-checkbox').click(function () {
+                            $('.scrollable-container input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+                        });
+
+
+                        //*************************************************************************
+
+                        // Variable para almacenar los valores seleccionados
+                        var valoresSeleccionados = '';
+
+                        // Agregar manejador de eventos solo a los input dentro del contenedor scrollable-container
+                        $('.scrollable-container input[type=checkbox]').on('change', function () {
+                            // Obtener el valor del checkbox
+                            var valorCheckbox = $(this).val();
+
+                            // Verificar si el checkbox está marcado o desmarcado
+                            if ($(this).is(':checked')) {
+                                // Agregar el valor del checkbox a la cadena
+                                if (valorCheckbox == 'on') {
+                                    // Reiniciar la variable y concatenar los valores de todos los checkbox dentro del contenedor
+                                    valoresSeleccionados = '';
+                                    $('.scrollable-container input[type=checkbox]').each(function () {
+                                        if ($(this).is(':checked') && $(this).val() != 'on') {
+                                            if (valoresSeleccionados.length > 0) {
+                                                valoresSeleccionados += ',';
+                                            }
+                                            valoresSeleccionados += $(this).val();
+                                        }
+                                    });
+                                } else {
+                                    // Agregar el valor del checkbox a la cadena
+                                    if (valoresSeleccionados.length > 0) {
+                                        valoresSeleccionados += ',';
+                                    }
+                                    valoresSeleccionados += valorCheckbox;
+                                }
+                            } else {
+                                // Eliminar el valor del checkbox de la cadena
+                                if (valoresSeleccionados.indexOf(',' + valorCheckbox) >= 0) {
+                                    valoresSeleccionados = valoresSeleccionados.replace(',' + valorCheckbox, '');
+                                } else if (valoresSeleccionados.indexOf(valorCheckbox + ',') >= 0) {
+                                    valoresSeleccionados = valoresSeleccionados.replace(valorCheckbox + ',', '');
+                                } else if (valoresSeleccionados.indexOf(valorCheckbox) >= 0) {
+                                    valoresSeleccionados = valoresSeleccionados.replace(valorCheckbox, '');
+                                } else if (valoresSeleccionados.indexOf(valorCheckbox) < 0) {
+                                    valoresSeleccionados = '';
+                                }
+                            }
+
+                            // Mostrar la cadena resultante en la consola (solo para fines de demostración)
+                            console.log(valoresSeleccionados);
+                            $("#Notificacion").val(valoresSeleccionados);
+                            
+                           
+                        });
+
+
+
+                        //*************************************************************************
+
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                        $("#form-container :input").prop('disabled', true);
+                        $("#concepto-container :input").prop('disabled', true);
+                    }
+                });
+            } else {
+
+                var scrollableContainer = $('.scrollable-container');
+                scrollableContainer.empty();
+                $("#form-container :input").prop('disabled', true);
+                $("#concepto-container :input").prop('disabled', true);
+
+            }
+        });
+
+
+
+
+        //*************************************************************************
+
+        $("#mantenimientosConceptos_select").change(function () {
+            var elementId = $("#mantenimientosConceptos_select").val();
+
+            if (elementId !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Mantenimientos/GetManConcepto?foreignKey=" + elementId,
+                    success: function (data) {
+                        $("#mantenimiento-concepto").val(data.mantenimientoConcepto);
+                        $("#mantenimiento-descripcion").val(data.mantenimientoDescripcion);
+
+                        $("#hiddenInputConcepto").val(data.mantenimientoConcepto);
+                        $("#hiddenInputDescripcion").val(data.mantenimientoDescripcion);
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                    }
+                });
+
+            } else {
+                $("#mantenimiento-concepto").val("");
+                $("#mantenimiento-descripcion").val("");
+            }
+        });
+
+
+        const mySwitch = document.querySelector('#mySwitch');
+        mySwitch.addEventListener('click', () => {
+            if (mySwitch.checked) {
+                // do something when switch is ON
+                // console.log('Switch is ON');
+
+                $("#mantenimiento-concepto").prop('readonly', false);
+                $("#mantenimiento-descripcion").prop('readonly', false);
+                $("#concepto-container :input").prop('disabled', true);
+                $("#conceptoCheckbox").prop('readonly', false);
+
+            } else {
+                // do something when switch is OFF
+                // console.log('Switch is OFF');
+
+                $("#mantenimiento-concepto").prop('readonly', true);
+                $("#mantenimiento-descripcion").prop('readonly', true);
+                $("#concepto-container :input").prop('disabled', false);
+                $("#conceptoCheckbox").prop('readonly', true);
+
+            }
+        });
+
+        const myCheckbox = document.querySelector('#conceptoCheckbox');
+        myCheckbox.addEventListener('click', () => {
+            if (myCheckbox.checked) {
+                // do something when switch is ON
+                // console.log('Switch is ON');
+
+                document.getElementById('Guardar').value = 'Si';
+
+            } else {
+                // do something when switch is OFF
+                // console.log('Switch is OFF');
+
+                document.getElementById('Guardar').value = 'No';
+
+            }
+        });
+
+    });
+
+</script>
+
+<style>
+
+    footer {
+        display: none;
+    }
+</style>

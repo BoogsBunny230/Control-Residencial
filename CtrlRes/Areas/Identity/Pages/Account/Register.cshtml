@@ -1,0 +1,227 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+
+<link rel="stylesheet" href="~/css/formRyE.css" />
+
+
+<div class="page-wrapper p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">REGISTRO DE USUARIO</h2>
+            </div>
+            <div class="card-body">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                    <div class="form-row">
+                        <label asp-for="Input.UserName" class="name">Nombre de usuario:</label>
+                        <div class="value">
+                            <input asp-for="Input.UserName" class="form-control" style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label asp-for="Input.Nombre" class="name">Nombre:</label>
+                        <div class="value">
+                            <input asp-for="Input.Nombre" class="form-control" style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label asp-for="Input.Password" class="name">Contraseña:</label>
+                        <div class="value">
+                            <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label asp-for="Input.ConfirmPassword" class="name">Confirmar contraseña:</label>
+                        <div class="value">
+                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="current-password" style="font-size:18px" />
+                        </div>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row ">
+                        <label class="name">Tipo de usuario:</label>
+                        <div class="value d-flex justify-content-end">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="propietario" value="Propietario">
+                            <label class="form-check-label" for="propietario">Propietario</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="arrendatario" value="Arrendatario">
+                            <label class="form-check-label" for="arrendatario">Arrendatario</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="administrativo" value="Administrativo">
+                            <label class="form-check-label" for="administrativo">Administrativo</label>
+                        </div>
+                        </div>
+                    </div>
+
+                    <input asp-for="Input.UsuarioTipo" type="hidden" id="tipo_seleccionado">
+
+                    <input asp-for="Input.Role" type="hidden" id="entrada_rol" disabled>
+
+                    <div class="form-row" id="selector_rol" >
+                        <div class="name">Rol de usuario</div>
+
+
+                        <div class="value">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" id="selector_1" class="form-control" aria-required="true" disabled>
+                                    <option disabled selected>Seleccione rol</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                                <span asp-validation-for="Input.Role" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*//*@
+
+                    <div class="form-row" id="selector_propietario" disabled>
+                        <div class="name">Propietario</div>
+
+
+                        <div class="value">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select asp-for="Input.PropOrArr_Id" asp-items="@Model.Input.PropietariosList" id="selector_2" class="form-control" aria-required="true" disabled>
+                                    <option disabled selected>Seleccione al propietario</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                                <span asp-validation-for="Input.PropOrArr_Id" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*///*@
+
+                    <div class="form-row" id="selector_arrendatario" disabled>
+                        <div class="name">Arrendatario</div>
+
+
+                        <div class="value">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select asp-for="Input.PropOrArr_Id" asp-items="@Model.Input.ArrendatariosList" id="selector_3" class="form-control" aria-required="true" disabled>
+                                    <option disabled selected>Seleccione al arrendatario</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                                <span asp-validation-for="Input.PropOrArr_Id" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary form-control" style="font-size:20px">Agregar</button>
+                                    &nbsp;
+                                </div>
+                                <div class="col">
+                                    <a asp-area="Admin" asp-controller="Usuarios" asp-action="Index" class="btn btn-success form-control" style="font-size:20px">Volver a la lista</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<style>
+
+    footer {
+        display: none;
+    }
+</style>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#selector_rol').hide();
+        $('#selector_propietario').hide();
+        $('#selector_arrendatario').hide();
+
+        const tipo_input = document.getElementById('tipo_seleccionado');
+        const checkboxes = document.querySelectorAll('input[type=radio][name=tipo]');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function () {
+                tipo_input.value = this.value;
+
+                if (tipo_input.value == "Administrativo") {
+
+                    $("#selector_1").prop('disabled', false);
+                    $("#selector_2").prop('disabled', true);
+                    $("#selector_3").prop('disabled', true);
+                    $("#entrada_rol").prop('disabled', true);
+
+                    $('#selector_rol').show();
+                    $('#selector_propietario').hide();
+                    $('#selector_arrendatario').hide();
+
+                    $("#tipo_seleccionado").val("Administrativo");
+
+                }
+                if (tipo_input.value == "Propietario") {
+
+                    $("#selector_1").prop('disabled', true);
+                    $("#selector_2").prop('disabled', false);
+                    $("#selector_3").prop('disabled', true);
+                    $("#entrada_rol").prop('disabled', false);
+
+                    $('#selector_rol').hide();
+                    $('#selector_propietario').show();
+                    $('#selector_arrendatario').hide();
+
+                    $("#entrada_rol").val("Propietario");
+                    $("#tipo_seleccionado").val("Propietario");
+                }
+
+                if (tipo_input.value == "Arrendatario") {
+
+                    $("#selector_1").prop('disabled', true);
+                    $("#selector_2").prop('disabled', true);
+                    $("#selector_3").prop('disabled', false);
+                    $("#entrada_rol").prop('disabled', false);
+
+                    $('#selector_rol').hide();
+                    $('#selector_propietario').hide();
+                    $('#selector_arrendatario').show();
+
+                    $("#entrada_rol").val("Arrendatario");
+                    $("#tipo_seleccionado").val("Arrendatario");
+
+                }
+            });
+        });
+
+    });
+</script>

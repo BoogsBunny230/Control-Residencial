@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes\bin\Release\net7.0\publish\</_PublishTargetUrl>
+    <History>True|2023-04-19T23:46:46.9960602Z;True|2023-04-19T14:36:15.4980980-06:00;True|2023-04-19T14:32:26.1026411-06:00;True|2023-04-19T14:24:36.8098197-06:00;True|2023-04-19T13:09:38.1075198-06:00;True|2023-04-19T13:07:16.1697442-06:00;True|2023-04-19T12:47:42.7249443-06:00;True|2023-04-19T12:33:17.6122497-06:00;True|2023-04-19T12:32:38.9744642-06:00;True|2023-04-19T12:32:08.2234728-06:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

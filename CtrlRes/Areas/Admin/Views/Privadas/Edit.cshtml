@@ -1,0 +1,59 @@
+﻿@model CtrlRes.Models.Privadas
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<partial name="_LoginPartial" />*@
+<br />
+<br />
+<h3 class="text-center">Editar privada</h3>
+
+<div class="row">
+    <div class="row px-5 mx-auto border col-10" style="position:center; width:1000px">
+        <form method="post" asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdPriv" />
+            <div class="form-group row">
+                <label asp-for="IdPriv" style="font-size:21px">ID</label>
+                <input asp-for="IdPriv" class="form-control" style="font-size:18px" readonly="readonly" />
+                <span asp-validation-for="IdPriv" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Nombre" style="font-size:21px"></label>
+                <input asp-for="Nombre" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="MedLuz" style="font-size:21px"></label>
+                <input asp-for="MedLuz" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="MedLuz" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Observaciones" style="font-size:21px"></label>
+                <input asp-for="Observaciones" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Observaciones" class="text-danger"></span>
+            </div>
+            &nbsp;
+            &nbsp;
+            @*Volver*@
+            <div class="form-group row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary form-control" style="font-size:20px" asp-route-id="@Model.IdPriv">Actualizar</button>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success form-control" style="font-size:20px">Volver al catálogo de clientes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            &nbsp;
+        </form>
+    </div>
+</div>
+
+

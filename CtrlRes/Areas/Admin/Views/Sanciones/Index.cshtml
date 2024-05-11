@@ -1,0 +1,308 @@
+﻿@model CtrlRes.Models.ViewModels.SancionesViewModel
+
+<style>
+
+    input[readonly], select[readonly] {
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
+        color: #888;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-prefix,
+    .input-suffix {
+        margin: 0 8px;
+    }
+
+</style>
+
+<div class="container-fluid mt-2">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-center fw-bold" style="background-color: #37322fe3; color: white">APLICACIÓN DE SANCIÓN</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 border-end border-3">
+                            <!-- Left column content -->
+                            <div class="form-check form-switch d-flex justify-content-end">
+                                <input class="form-check-input text-end" type="checkbox" id="mySwitch">
+                                <label class="form-check-label text-start" for="mySwitch1"> &nbsp;Enviar notificación solo al arrendatario</label>
+                            </div>
+                            <label for="tipo">Seleccione una privada:</label>
+                            <select class="form-select mb-3" id="privada_select" name="selectorpriv" required data-error="Debe seleccionar una privada">
+                                <option value="">Seleccione una opción</option>
+                                @foreach (var privada in ViewBag.Privadas)
+                                {
+                                    <option value="@privada.IdPriv">@privada.Nombre</option>
+                                }
+                            </select>
+                            <label for="Viviendas">Seleccione una vivienda</label>
+                            <select id="Viviendas-select" name="nombres" class="form-select mb-3" disabled>
+                                <option value="">Seleccione una opción</option>
+                            </select>
+                            <label for="numviv">Propietario:</label>
+                            <input type="text" id="propietario-nombre" class="form-control mb-3" disabled>
+                            <label for="celular">Arrendatario:</label>
+                            <input type="text" id="arrendatario-nombre" class="form-control mb-3" disabled>
+                        </div>
+
+                        <div class="col-md-6 border-start border-3" id="form-container">
+                            <!-- Right column content -->
+                            <form method="post" asp-action="Index" enctype="multipart/form-data">
+                                <div class="form-check form-switch d-flex justify-content-end">
+                                    <input class="form-check-input text-end" type="checkbox" id="mySwitch2">
+                                    <label class="form-check-label text-start" for="mySwitch"> &nbsp;Nuevo concepto</label>
+                                </div>
+
+                                <input type="hidden" asp-for="Sanciones.Vivienda_Id" id="Vivienda_Id" value="No" />
+
+
+                                <label asp-for="Sanciones.Concepto">Identificador de sanción:</label>
+                                <input asp-for="Sanciones.Id" type="text" class="form-control mb-3" required disabled>
+                                <label asp-for="Sanciones.Concepto">Concepto de sanción:</label>
+                                <input asp-for="Sanciones.Concepto" type="text" id="sancion-concepto" class="form-control mb-3" required disabled>
+                                <input type="hidden" asp-for="SancionesConceptos.Concepto" id="hiddenInputConcepto" />
+
+                                <label asp-for="Pagos.Referencia">Referencia de pago:</label>
+                                <input asp-for="Pagos.Referencia" type="number" class="form-control mb-3" required disabled>
+
+                                <label asp-for="Sanciones.Monto">Monto a pagar:</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <input asp-for="Sanciones.Monto" type="number" id="sancion-monto" class="form-control" disabled>
+                                    <span class="input-group-text">MXN</span>
+                                </div>
+                                <input type="hidden" asp-for="SancionesConceptos.Monto" id="hiddenInputMonto" />
+
+                                <label asp-for="Sanciones.Mensaje">Mensaje:</label>
+                                <textarea asp-for="Sanciones.Mensaje" id="mensaje" class="form-control mb-3" rows="5" required></textarea>
+
+                                <div class="form-group">
+                                    <label asp-for="Sanciones.FechaIncidente">Fecha del incidente:</label>
+                                    <input asp-for="Sanciones.FechaIncidente" type="datetime-local" class="form-control mb-3" required />
+                                </div>
+                                <label>Archivo de evidencia</label>
+                                <input asp-for="Sanciones.Archivo" class="form-control mb-3" type="file" asp-for="Archivo" name="Archivo" required />
+                                <div class="form-group">
+                                    <label asp-for="Pagos.FechaLimite">Fecha límite de pago</label>
+                                    <input asp-for="Pagos.FechaLimite" type="datetime-local" class="form-control mb-3" required />
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-check-input" type="checkbox" id="conceptoCheckbox">
+                                        <label class="form-check-label" for="conceptoCheckbox">
+                                            Guardar concepto
+                                        </label>
+                                        &nbsp;
+                                        <input type="hidden" asp-for="GuardarConcepto" id="Guardar" value="No"/>
+                                    </div>
+                                    <div class="col">
+                                        <div clas="col-md-1" style="text-align: right;">
+                                            <button type="submit" id="boton" class="btn btn-outline-success">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" id="concepto-container">
+            <div class="card">
+                <div class="card-header text-center fw-bold" style="background-color: #37322fe3; color: white">CONCEPTOS DE SANCIONES DEFINIDOS</div>
+                <div class="card-body">
+                    <!-- Put your content here -->
+                    <label for="tipo">Concepto de sanción:</label>
+                    <select class="form-select mb-3" id="sancionesConceptos_select" required data-error="Debe seleccionar una privada">
+                        <option value="">Seleccione una opción</option>
+                        @foreach (var sancionesConceptos in ViewBag.SancionesConceptos)
+                        {
+                            <option value="@sancionesConceptos.Id">@sancionesConceptos.Concepto</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        //
+        
+        document.querySelector('#sancion-concepto').addEventListener('input', function () {
+            document.querySelector('#hiddenInputConcepto').value = this.value;
+        });
+
+        document.querySelector('#sancion-monto').addEventListener('input', function () {
+            document.querySelector('#hiddenInputMonto').value = this.value;
+        });
+
+        //
+
+        $("#form-container :input").prop('disabled', true);
+        $("#concepto-container :input").prop('disabled', true);
+
+        $("#privada_select").change(function () {
+            $("#propietario-nombre").val("");
+            $("#arrendatario-nombre").val("");
+            $("#form-container :input").prop('disabled', true);
+            $("#concepto-container :input").prop('disabled', true);
+            var foreignKey = $("#privada_select").val();
+
+            if (foreignKey !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Pagos/GetViviendas?foreignKey=" + foreignKey,
+                    success: function (data) {
+                        $("#Viviendas-select").prop('disabled', false);
+                        $("#Viviendas-select").empty();
+                        $("#Viviendas-select").append('<option value="">Seleccione una opción</option>');
+                        $.each(data, function (i, item) {
+                            console.log(item);
+                            $("#Viviendas-select").append('<option value="' + item.value + '">' + item.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                        $("#Viviendas-select").prop('disabled', true);
+                    }
+                });
+            } else {
+                $("#data-selector").empty();
+                $("#data-selector").append('<option value="">Seleccione una privada primero</option>');
+            }
+        });
+
+        $("#Viviendas-select").change(function () {
+            var elementId = $("#Viviendas-select").val();
+            document.querySelector('#Vivienda_Id').value = elementId;
+
+            if (elementId !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Sanciones/GetPropArre?foreignKey=" + elementId,
+                    success: function (data) {
+                        $("#propietario-nombre").val(data.propietarioNombre);
+                        $("#arrendatario-nombre").val(data.arrendatarioNombre);
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                    }
+                });
+
+                $("#form-container :input").prop('disabled', false);
+                $("#concepto-container :input").prop('disabled', false);
+                $("#sancion-concepto").prop('readonly', true);
+                $("#sancion-monto").prop('readonly', true);
+                $("#conceptoCheckbox").prop('readonly', true);
+                //$("#boton").prop('disabled', true);
+
+            } else {
+                $("#propietario-nombre").val("");
+                $("#arrendatario-nombre").val("");
+            }
+        });
+
+        $("#sancionesConceptos_select").change(function () {
+            var elementId = $("#sancionesConceptos_select").val();
+
+            if (elementId !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Sanciones/GetSanConcepto?foreignKey=" + elementId,
+                    success: function (data) {
+                        $("#sancion-concepto").val(data.sancionConcepto);
+                        $("#sancion-monto").val(data.sancionMonto);
+
+                        $("#hiddenInputConcepto").val(data.sancionConcepto);
+                        $("#hiddenInputMonto").val(data.sancionMonto);
+                    },
+                    error: function () {
+                        alert("Error al cargar los datos.");
+                    }
+                });
+
+            } else {
+                $("#sancion-concepto").val("");
+                $("#sancion-monto").val("");
+            }
+        });
+
+        const mySwitch = document.querySelector('#mySwitch2');
+        mySwitch.addEventListener('click', () => {
+            if (mySwitch.checked) {
+                // do something when switch is ON
+                // console.log('Switch is ON');
+
+                $("#sancion-concepto").prop('readonly', false);
+                $("#sancion-monto").prop('readonly', false);
+                $("#concepto-container :input").prop('disabled', true);
+                $("#conceptoCheckbox").prop('readonly', false);
+
+                $("#sancion-concepto").val("");
+                $("#sancion-monto").val("");
+
+                $("#hiddenInputConcepto").val("");
+                $("#hiddenInputMonto").val("");
+
+            } else {
+                // do something when switch is OFF
+                // console.log('Switch is OFF');
+
+                $("#sancion-concepto").prop('readonly', true);
+                $("#sancion-monto").prop('readonly', true);
+                $("#concepto-container :input").prop('disabled', false);
+                $("#conceptoCheckbox").prop('readonly', true);
+
+                var guardarCheckbox = document.querySelector('#conceptoCheckbox');
+                guardarCheckbox.checked = false; // Desmarcar el checkbox
+                document.getElementById('Guardar').value = 'No';
+
+            }
+        });
+
+        //
+
+        const myCheckbox = document.querySelector('#conceptoCheckbox');
+        myCheckbox.addEventListener('click', () => {
+            if (myCheckbox.checked) {
+                // do something when switch is ON
+                // console.log('Switch is ON');
+
+                document.getElementById('Guardar').value = 'Si';
+
+            } else {
+                // do something when switch is OFF
+                // console.log('Switch is OFF');
+
+                document.getElementById('Guardar').value = 'No';
+
+            }
+        });
+
+    });
+
+</script>
+
+<style>
+
+    footer {
+        display: none;
+    }
+</style>

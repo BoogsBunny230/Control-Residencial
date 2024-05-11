@@ -1,0 +1,439 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+    <style>
+
+        #content {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+
+        body,
+        html {
+            overflow: hidden;
+            height: 100%;
+            background: #e2e7ec url('@Url.Action("ObtenerImagen", "Herramientas", new { area = "Admin" })') no-repeat center center fixed;
+            background-size: cover;
+            color: #666
+        }
+
+        .container-fluid {
+            perspective: 300px;
+        }
+
+        .btn {
+            cursor: pointer
+        }
+
+        .sign-box {
+            width: 100%;
+            max-width: 460px;
+            margin: 20vh auto;
+            margin-left: 183px;
+            margin-top: 17.1vh;
+            /*margin-top: 12.5vh;*/
+            background: rgba(255,255,255,0.7);
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%,rgb(143 55 20 / 36%) 26%,#0b0201 100%);
+            border: 1px solid #d8e2e7;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1rem;
+            position: relative;
+            max-height: 600px;
+            overflow: hidden;
+            opacity: 1;
+            text-align: center;
+            transition: .3s cubic-bezier(.3,1.5,.7,1) transform;
+        }
+
+        @@media (max-width: 767px) {
+
+            .sign-box {
+                margin: 20vh auto;
+                margin-top: 17.1vh;
+            }
+        }
+
+        .enters {
+            animation: slidedown 1.84s 1, scolor 3s infinite ease-in-out;
+        }
+
+        .sign-box .sign-avatar {
+            width: 250px;
+            margin: 30px auto;
+        }
+
+            .sign-box .sign-avatar img {
+                display: block;
+                width: 100%;
+            }
+
+        .sign-box .btn {
+            display: block;
+            min-width: 108px;
+            margin: 16px auto 12px;
+            cursor: pointer
+        }
+
+            .sign-box .btn.sign-up {
+                margin-top: 18px
+            }
+
+        .sign-box .sign-note {
+            text-align: center
+        }
+
+        .sign-box a {
+            text-decoration: none;
+            color: #0082c6;
+            border-bottom: solid 1px transparent
+        }
+
+            .sign-box a:hover {
+                border-bottom-color: rgba(0, 130, 198, .5)
+            }
+
+        .sign-box .form-group {
+            margin-bottom: 12px;
+            zoom: 1
+        }
+
+            .sign-box .form-group:after,
+            .sign-box .form-group:before {
+                content: " ";
+                display: table
+            }
+
+            .sign-box .form-group:after {
+                clear: both
+            }
+
+        .alert.hidden {
+            display: none !important
+        }
+
+        .sign-box .reset {
+            font-size: .875rem
+        }
+
+        .sign-box .close {
+            position: absolute;
+            right: 10px;
+            top: 4px;
+            opacity: 1;
+            color: #c5d6de
+        }
+
+            .sign-box .close:hover {
+                color: #00a8ff
+            }
+
+        ::-webkit-input-placeholder {
+            color: #bbb !important;
+        }
+
+        .bot {
+            color: #999 !important;
+            border: 0px solid #ddd !important;
+            background: #ddd;
+            overflow: hidden;
+            display: inline-block;
+            width: 140px;
+            white-space: nowrap;
+            text-align: left;
+            border-radius: 20px;
+            transition: all 0.2s
+        }
+
+            .bot i {
+                font-size: 32px;
+                vertical-align: middle;
+                transform: rotate(90deg);
+                transition: all 0.4s
+            }
+
+            .bot:hover i, .bot:hover span {
+                color: #678
+            }
+
+            .bot .fa-check-circle {
+                color: #5bc0de !important;
+                transform: rotate(0deg);
+            }
+
+            .bot span {
+                font-size: 14px;
+                padding: 0 0 0 10px;
+                display: inline-block;
+                text-shadow: 0 1px 0 #fff;
+            }
+
+            .bot.chk {
+                width: 28px;
+                background: #fff
+            }
+
+        .shake {
+            transform-origin: center;
+            animation-name: shake;
+            animation-duration: 400ms;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-in-out
+        }
+
+        @@keyframes scolor {
+            0% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(0, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            2.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(15, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(30, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            7.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(45, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            10% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(60, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            12.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(75, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            15% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(90, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            17.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(105, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            20% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(120, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            22.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(135, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            25% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(150, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            27.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(165, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            30% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(180, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            32.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(195, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            35% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(210, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            37.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(225, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            40% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(240, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            42.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(255, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            45% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(270, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            47.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(285, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            50% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(300, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            52.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(315, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            55% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(330, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            57.5% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(345, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            60% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(360, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+
+            100% {
+                background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, hsl(360, 100%, 50%, 0.36) 26%, #0b0201 100%);
+            }
+        }
+
+        @@keyframes slidedown {
+            0% {
+                max-height: 0px;
+                opacity: 0
+            }
+
+            100% {
+                max-height: 600px;
+                opacity: 1
+            }
+        }
+
+        @@keyframes shake {
+            0% {
+                transform: none
+            }
+
+            12.5% {
+                transform: translateX(-6px) rotateY(-5deg)
+            }
+
+            37.5% {
+                transform: translateX(5px) rotateY(4deg)
+            }
+
+            62.5% {
+                transform: translateX(-3px) rotateY(-3deg)
+            }
+
+            87.5% {
+                transform: translateX(2px) rotateY(2deg)
+            }
+
+            100% {
+                transform: none
+            }
+        }
+
+
+        #btn-twtr {
+            clear: both;
+            color: #fff;
+            border: 2px solid;
+            border-radius: 3px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-family: sans-serif;
+            font-size: 14px;
+            width: 13em;
+            padding: 5px 10px;
+            font-weight: 600;
+            position: absolute;
+            top: 90vh;
+            right: 1vh;
+            background: rgba(0,0,0,0.2);
+            box-shadow: 0 0 0px 3px rgba(0,0,0,0.2);
+            opacity: 0.6
+        }
+
+            #btn-twtr:hover {
+                color: #fff;
+                opacity: 1
+            }
+
+    </style>
+    <script>
+        window.onload = function () {
+            // Mostrar el contenido de la página cuando se haya cargado todo
+            document.getElementById("content").style.display = "block";
+        }
+    </script>
+</head>
+
+
+<body class="main-bg">
+
+    <div class="container-fluid" id="content">
+        <div>
+            <section>
+                <form id="account" method="post" class="sign-box enters">
+                    <div class="sign-avatar">
+                        <img src="https://i.imgur.com/QFBqKnm.png" alt="">
+                    </div>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-group">
+                        <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="&#xf007; Usuario" />
+                        @*<label asp-for="Input.UserName" class="form-label">Usuario</label>*@
+                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Contraseña" />
+                        @*<label asp-for="Input.Password" class="form-label">Contraseña</label>*@
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label asp-for="Input.RememberMe" class="form-label" style="color: white">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-light">Acceder</button>
+                    </div>
+                    @*            <div>
+                    <p>
+                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                    <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                    </div>*@
+                    <br />
+                    <br />
+                    <br />
+                </form>
+            </section>
+        </div>
+    </div>
+
+    @section scriptsdown {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+</body>
+</html>

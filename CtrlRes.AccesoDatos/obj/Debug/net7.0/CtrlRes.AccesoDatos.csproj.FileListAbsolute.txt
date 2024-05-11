@@ -1,0 +1,38 @@
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.deps.json
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.runtimeconfig.json
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Models.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Models.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Utilidades.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.csproj.AssemblyReference.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.AssemblyInfoInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.AssemblyInfo.cs
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.csproj.CoreCompileInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.csproj.CopyComplete
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\refint\CtrlRes.AccesoDatos.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.genruntimeconfig.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\ref\CtrlRes.AccesoDatos.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.deps.json
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.runtimeconfig.json
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.AccesoDatos.pdb
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Models.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Utilidades.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Models.pdb
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\bin\Debug\net7.0\CtrlRes.Utilidades.pdb
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.csproj.AssemblyReference.cache
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.AssemblyInfoInputs.cache
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.AssemblyInfo.cs
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.csproj.CoreCompileInputs.cache
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes..3AE8B307.Up2Date
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\refint\CtrlRes.AccesoDatos.dll
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.pdb
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\CtrlRes.AccesoDatos.genruntimeconfig.cache
+C:\Users\Guillermo\Documents\Pc\CtrlRes_09072023\CtrlRes\CtrlRes.AccesoDatos\obj\Debug\net7.0\ref\CtrlRes.AccesoDatos.dll

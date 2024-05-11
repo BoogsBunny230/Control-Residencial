@@ -1,0 +1,12 @@
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Release\net7.0\CtrlRes.Utilidades.deps.json
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Release\net7.0\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\bin\Release\net7.0\CtrlRes.Utilidades.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.csproj.AssemblyReference.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.AssemblyInfoInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.AssemblyInfo.cs
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.csproj.CoreCompileInputs.cache
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\refint\CtrlRes.Utilidades.dll
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\CtrlRes.Utilidades.pdb
+E:\PROGRAMACION\.NET\ASP.NET\Aplicación web de ASP.NET Core MVC\CtrlRes\CtrlRes.Utilidades\obj\Release\net7.0\ref\CtrlRes.Utilidades.dll

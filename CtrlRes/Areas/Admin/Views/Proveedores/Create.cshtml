@@ -1,0 +1,48 @@
+﻿@model CtrlRes.Models.Proveedores
+
+@{
+    ViewData["Title"] = "Agregar arrendatario";
+}
+
+<br />
+<br />
+<h3 class="text-center"> Agregar un nuevo proveedor</h3>
+
+<div class="row">
+    <div class="row px-5 mx-auto border col-10" style="position:center; width:1000px">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="IdProv" style="font-size:21px">Identificador del proveedor:</label>
+                <input asp-for="IdProv" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="IdProv" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Nombre" style="font-size:21px">Nombre del proveedor:</label>
+                <input asp-for="Nombre" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Numero" style="font-size:21px">Numero de contacto del proveedor:</label>
+                <input asp-for="Numero" class="form-control" style="font-size:18px" type="number" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Servicios" style="font-size:21px">Descripción de los servicios que realiza el proveedor:</label>
+                <input asp-for="Servicios" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="Servicios" class="text-danger"></span>
+            </div>
+            &nbsp;
+            @*Volver*@
+            <div class="form-group row">
+                <div class="col-12">
+                    <partial name="_VistaCrearVolver" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

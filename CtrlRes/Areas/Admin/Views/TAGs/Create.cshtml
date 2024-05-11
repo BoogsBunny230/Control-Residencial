@@ -1,0 +1,48 @@
+﻿@model CtrlRes.Models.TAGs
+
+@{
+    ViewData["Title"] = "Agregar TAG";
+}
+
+<br />
+<br />
+<h3 class="text-center"> Agregar nueva TAG</h3>
+
+<div class="row">
+    <div class="row px-5 mx-auto border col-10" style="position:center; width:1000px">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="TAG" style="font-size:21px">Identificador de la vivienda:</label>
+                <input asp-for="TAG" class="form-control" style="font-size:18px" />
+                <span asp-validation-for="TAG" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Propietario" style="font-size:21px">Pertene al propietario/a:</label>
+                <div style="font-size:18px" id="PropietarioSelect">
+                    @Html.DropDownListFor(model => model.Propietario, new SelectList(ViewBag.Propietarios, "Id", "Nombre"),
+                    "Seleccione un/a propietario/a", new { @class = "form-control" })
+                </div>
+                <span asp-validation-for="Propietario" class="text-danger"></span>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+                <label asp-for="Privada" style="font-size:21px">Pertene a la privada:</label>
+                <div style="font-size:18px" id="PropietarioSelect">
+                    @Html.DropDownListFor(model => model.Privada, new SelectList(ViewBag.Privadas, "IdPriv", "Nombre"),
+                    "Seleccione un/a propietario/a", new { @class = "form-control" })
+                </div>
+                <span asp-validation-for="Privada" class="text-danger"></span>
+            </div>
+            &nbsp;
+            @*Volver*@
+            <div class="form-group row">
+                <div class="col-12">
+                    <partial name="_VistaCrearVolver" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
